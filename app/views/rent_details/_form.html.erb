@@ -1,0 +1,57 @@
+<%= form_for(@rent_detail) do |f| %>
+  <% if @rent_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rent_detail.errors.count, "error") %> prohibited this rent_detail from being saved:</h2>
+
+      <ul>
+      <% @rent_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<%= f.autocomplete_field :movie_code, autocomplete_movie_code_rent_details_path %>
+	
+  <div class="field">
+    <%= f.label :rent_id %><br />
+    <%= f.number_field :rent_id %>
+  </div>
+  <div class="field">
+    <%= f.label :movie_code %><br />
+    <%= f.number_field :movie_code %>
+  </div>
+<div class="field">
+    <%= f.label :movie_kind_id %><br />
+    <%= f.number_field :movie_kind_id %>
+  </div>
+  <div class="field">
+    <%= f.label :rent_price_id %><br />
+    <%= f.number_field :rent_price_id %>
+  </div>
+  <div class="field">
+    <%= f.label :delivered %><br />
+    <%= f.check_box :delivered %>
+  </div>
+  <div class="field">
+    <%= f.label :delivered_date %><br />
+    <%= f.datetime_select :delivered_date %>
+  </div>
+  <div class="field">
+    <%= f.label :surcharge_days %><br />
+    <%= f.number_field :surcharge_days %>
+  </div>
+  <div class="field">
+    <%= f.label :surcharge %><br />
+    <%= f.text_field :surcharge %>
+  </div>
+  <div class="field">
+    <%= f.label :pending_surcharge %><br />
+    <%= f.text_field :pending_surcharge %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+<% end %>

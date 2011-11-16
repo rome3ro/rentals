@@ -1,0 +1,39 @@
+	<%= f.collection_select(:movie_kind_id, @rent.item_to_collection(@rent.rent_details[@contador].movie_kind), :id, :name ) if !@rent.rent_details[@contador].nil? %>	
+	
+	<%= f.collection_select(:rent_price_id, @rent.item_to_collection(@rent.rent_details[@contador].rent_price), :id, :price ) if !@rent.rent_details[@contador].nil? %>
+	
+	
+	@combo_moviekind = "<select id=\"rent_rent_details_attributes_#{params[:item_id]}_movie_kind_id\" "+
+"name=\"rent[rent_details_attributes][#{params[:item_id]}][movie_kind_id]\">"+
+"<option value=\"#{@movie.movie_kind.id}\">#{@movie.movie_kind.name}</option></select>"
+
+@combo_price = "<select id=\"rent_rent_details_attributes_#{params[:item_id]}_rent_price_id\" "+
+"name=\"rent[rent_details_attributes][#{params[:item_id]}][rent_price_id]\">"+
+"<option value=\"#{@movie.rent_price.id}\">#{@movie.rent_price.price}</option></select>"
+
+@script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
+".find($('.item_details')).html('#{@combo_moviekind}&nbsp;#{@combo_price}');"                          
+
+	<%= f.collection_select(:movie_kind_id, @movie_kinds, :id, :name, {:include_blank => 'Please Select'} ) %>	
+	<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price, {:include_blank => 'Please Select'} ) %>
+	
+	
+	
+	 @script = "$(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_kind_id\")"+
+".empty().append(#{movie_kinds_to_options(@movie_kinds)});"
+@script += "$(\"#rent_rent_details_attributes_#{params[:item_id]}_rent_price_id\")"+
+".empty().append(#{rent_price_to_options(@rent_prices)});"
+
+$ ->
+ 	$("FORM").nestedFields beforeInsert: (item) ->	 item.find("INPUT[type=text]").bind "railsAutocomplete.select", (event, data) -> $.ajax url: "update_data", data: "item_id="+item.attr("data-record-id")+"&movie_id="+data.item.value, type: "POST", dataType: "script", success: (dato) -> 	#alert dato
+
+	$ ->
+	  $("FORM").nestedFields beforeInsert: (item) ->		
+	    item.find(".item_details").hide()
+	    item.find("INPUT[type=text]").bind "railsAutocomplete.select", (event, data) ->
+	      $.ajax
+	        url: "update_data"
+	        data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value
+	        type: "POST"
+	        dataType: "script"
+	        success: (dato) ->

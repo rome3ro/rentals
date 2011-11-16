@@ -1,0 +1,27 @@
+rails g scaffold Customer code:integer name:string address:string phone:string cellphone:string city_id:integer birthday:date gender_id:integer email:string
+rails g scaffold Gender description:string 
+rails g scaffold state nombre:string
+rails g scaffold city nombre:string state_id:integer
+##subirle documentos scaneados creedencial ife y comprobante de domicilio.
+
+rails g scaffold Movie code:string name:string category_id:integer cover:string imdb_id:integer
+
+rails g scaffold Rent customer_id:integer 
+
+rails g scaffold RentDetail rent_id:integer movie_code:integer rentprice_id:integer delivered:boolean delivered_date:datetime surcharge_days:integer surcharge:decimal pending_surcharge:decimal
+#una cosa es que ya haya entregado otra que haya aún pagos pendientes de recargos
+
+rails g scaffold RentPrice description:string price:decimal days:integer weekday:integer surcharge:decimal moviekind_id:integer movies_quantity:integer
+
+#incluir en el formulario de deals que al jalar el día jale el precio del día de RentPrice
+
+rails g scaffold MovieKind name:string description:string expiration_days:integer
+
+rails g scaffold Payments customer_id:integer payment:decimal rentdetail_id:integer
+
+rails g scaffold weekday dayname:string daynumber:integer
+
+roman3ro$ rails g scaffold movie_format name:string
+
+#FALTA ABONOS DE RECARGOS
+#FALTA MANERA DE LIMPIAR RECARGOS

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @rent_price.description %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @rent_price.price %>
+</p>
+
+<p>
+  <b>Days:</b>
+  <%= @rent_price.days %>
+</p>
+
+<p>
+  <b>Weekday:</b>
+  <%= @rent_price.weekday.dayname %>
+</p>
+
+<p>
+  <b>Surcharge:</b>
+  <%= @rent_price.surcharge %>
+</p>
+
+<p>
+  <b>Movie kind:</b>
+  <%= @rent_price.movie_kind.name %>
+</p>
+
+<%= link_to 'Edit', edit_rent_price_path(@rent_price) %> |
+<%= link_to 'Back', rent_prices_path %>

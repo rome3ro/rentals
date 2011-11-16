@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Rent:</b>
+  <%= @rent_detail.rent_id %>
+</p>
+
+<p>
+  <b>Movie:</b>
+  <%= @rent_detail.movie_id %>
+</p>
+
+<p>
+  <b>Rentprice:</b>
+  <%= @rent_detail.rentprice_id %>
+</p>
+
+<p>
+  <b>Delivered:</b>
+  <%= @rent_detail.delivered %>
+</p>
+
+<p>
+  <b>Delivered date:</b>
+  <%= @rent_detail.delivered_date %>
+</p>
+
+<p>
+  <b>Surcharge days:</b>
+  <%= @rent_detail.surcharge_days %>
+</p>
+
+<p>
+  <b>Surcharge:</b>
+  <%= @rent_detail.surcharge %>
+</p>
+
+<p>
+  <b>Pending surcharge:</b>
+  <%= @rent_detail.pending_surcharge %>
+</p>
+
+
+<%= link_to 'Edit', edit_rent_detail_path(@rent_detail) %> |
+<%= link_to 'Back', rent_details_path %>

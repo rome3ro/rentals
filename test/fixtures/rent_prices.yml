@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyString
+  price: 9.99
+  days: 1
+  weekday: 1
+  surcharge: 9.99
+
+two:
+  description: MyString
+  price: 9.99
+  days: 1
+  weekday: 1
+  surcharge: 9.99

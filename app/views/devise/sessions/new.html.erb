@@ -1,0 +1,11 @@
+<% title "Sign in" %>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>  
+  <ol>  
+    <li><%= f.label :username %> <%= f.text_field :username %></li>  
+    <li><%= f.label :password %>&nbsp; <%= f.password_field :password %></li>  
+  	<li>&nbsp;</li>	
+    <li><%= f.submit "Sign in" %></li>  
+  </ol>  
+<% end %>  
+<%= render :partial => "devise/shared/links" %>

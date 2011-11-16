@@ -1,0 +1,47 @@
+<%= javascript_include_tag "jquery.maskMoney" %>
+<%= form_for(@rent_price) do |f| %>
+  <% if @rent_price.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rent_price.errors.count, "error") %> prohibited this rent_price from being saved:</h2>
+
+      <ul>
+      <% @rent_price.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :days %><br />
+    <%= f.text_field :days, :maxlength => 2 %>
+  </div>
+  <div class="field">
+	
+    <%= f.label :weekday_id %><br />
+    <%= collection_select(:rent_price, :weekday_id, Weekday.all, :id, :dayname, :prompt => false) %>
+  </div>
+  <div class="field">
+    <%= f.label :surcharge %><br />
+    <%= f.text_field :surcharge %>
+  </div>
+<div class="field">
+    <%= f.label :movie_kind_id %><br />
+    <%= collection_select(:rent_price, :movie_kind_id, MovieKind.all, :id, :name, :prompt => true) %>
+  </div>
+<div class="field">
+    <%= f.label :movies_quantity %><br />
+    <%= f.text_field :movies_quantity, :maxlength => 2 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

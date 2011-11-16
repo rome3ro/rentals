@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Customer:</b>
+  <%= @rent.customer_code %>
+  <% @rent.rent_details.each do |d| %>
+	
+	<p>
+	  <b>Movie:</b>
+	  <%= d.movie_code %>
+	</p>
+	<p>
+	  <b>Kind:</b>
+	  <%= d.movie_kind.name %>
+	</p>
+	<p>
+	  <b>Price:</b>
+	  <%= d.rent_price.price %>
+	</p>
+	
+
+  <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_rent_path(@rent) %> |
+<%= link_to 'Back', rents_path %>
