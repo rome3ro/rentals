@@ -4,9 +4,6 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.all
-    @movies.each do |m|        
-      m.set_kind_of_movie
-    end
     
     respond_to do |format|
       format.html # index.html.erb

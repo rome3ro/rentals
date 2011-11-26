@@ -1,45 +1,51 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Rent:</b>
-  <%= @rent_detail.rent_id %>
+  <b>Cliente:</b>
+  <%= @rent_detail.rent.customer_code_name %>
 </p>
 
 <p>
-  <b>Movie:</b>
-  <%= @rent_detail.movie_id %>
+  <b>Película:</b>
+  <%= @rent_detail.movie_code_name %>
 </p>
 
 <p>
-  <b>Rentprice:</b>
-  <%= @rent_detail.rentprice_id %>
+  <b>Precio:</b>
+  <%= number_to_currency(@rent_detail.rent_price.price) %>
 </p>
 
 <p>
-  <b>Delivered:</b>
-  <%= @rent_detail.delivered %>
+  <b>Entregar el:</b>
+  <%= @rent_detail.deliver_date.strftime("%d-%m-%Y %H:%M") %>
+</p>
+
+
+<p>
+  <b>Entregada:</b>
+ <%= check_box_tag(@rent_detail.delivered, nil, @rent_detail.delivered, :disabled => true) %>
 </p>
 
 <p>
-  <b>Delivered date:</b>
-  <%= @rent_detail.delivered_date %>
+  <b>Entregada el:</b>
+  <%= @rent_detail.delivered_date.strftime("%d-%m-%Y %H:%M") if !@rent_detail.delivered_date.nil? %>
 </p>
 
 <p>
-  <b>Surcharge days:</b>
+  <b>Recargos(días):</b>
   <%= @rent_detail.surcharge_days %>
 </p>
 
 <p>
-  <b>Surcharge:</b>
-  <%= @rent_detail.surcharge %>
+  <b>Recargos(m.n.):</b>
+  <%= number_to_currency(@rent_detail.surcharge) %>
 </p>
 
 <p>
-  <b>Pending surcharge:</b>
-  <%= @rent_detail.pending_surcharge %>
+  <b>Pendiente(m.n.):</b>
+  <%= number_to_currency(@rent_detail.pending_surcharge) %>
 </p>
 
 
-<%= link_to 'Edit', edit_rent_detail_path(@rent_detail) %> |
-<%= link_to 'Back', rent_details_path %>
+<%= link_to 'Editar', edit_rent_detail_path(@rent_detail) %> |
+<%= link_to 'Volver', rent_details_path %>

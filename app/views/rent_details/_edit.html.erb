@@ -1,0 +1,74 @@
+<%= javascript_include_tag "jquery.maskMoney" %>
+<%= form_for(@rent_detail) do |f| %>
+  <% if @rent_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rent_detail.errors.count, "error") %> prohibited this rent_detail from being saved:</h2>
+
+      <ul>
+      <% @rent_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+		
+  <div class="field">    
+	<b>Cliente:</b>
+    <%= @rent_detail.rent.customer_code_name %>
+  </div>
+  <div class="field">
+	<b>Película:</b>
+	<%= @rent_detail.movie_code_name %>
+  </div>
+<div class="field">
+	<b>Tipo:</b>
+	<%= @rent_detail.movie_kind.name %>
+  </div>
+  <div class="field">
+	<b>Precio:</b>
+	<%= number_to_currency(@rent_detail.rent_price.price) %>
+  </div>
+<div class="field">
+	<b>Entregar el:</b>
+	<%= @rent_detail.deliver_date.strftime("%d-%m-%Y %H:%M") %>
+  </div>
+ <div class="field">
+	<b>Entregada el:</b>
+	<%= @rent_detail.delivered_date.strftime("%d-%m-%Y %H:%M") if @rent_detail.delivered_date %>
+  </div>
+<div class="field">
+	<b>Recargos(días):</b>
+	<%= @rent_detail.surcharge_days %>
+	<%= f.hidden_field :surcharge_days%>
+  </div>
+<div class="field">
+	<b>Recargos(m.n.):</b>
+	<%= number_to_currency(@rent_detail.surcharge) %>
+		<%= f.hidden_field :surcharge%>
+  </div>
+<div class="field">
+	<b>Pendiente(m.n.):</b>
+	<%= number_to_currency(@rent_detail.pending_surcharge) %>
+	<%= f.hidden_field :pending_surcharge%>
+  </div>
+
+	<% if @rent_detail.delivered == false %>
+  <div class="field">
+    <b>Entregada:</b>
+    <%= f.check_box :delivered %>
+  </div>
+	<% else %>
+	
+	<div class="field">
+	    <b>Liquidar/Abonar:</b>
+	    <%= f.text_field :pay %>
+	  </div>
+	
+	<% end %>
+<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+<% end %>

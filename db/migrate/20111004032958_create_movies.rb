@@ -6,7 +6,8 @@ class CreateMovies < ActiveRecord::Migration
       t.integer :movie_format_id
       t.string :imdb_id
       t.date :released
-
+      #t.boolean :rented
+      t.integer :user_id
       #t.integer :category_id
       #t.string :cover
       #t.integer :imdb_id

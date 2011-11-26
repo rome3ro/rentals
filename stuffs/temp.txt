@@ -17,7 +17,10 @@
 	<%= f.collection_select(:movie_kind_id, @movie_kinds, :id, :name, {:include_blank => 'Please Select'} ) %>	
 	<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price, {:include_blank => 'Please Select'} ) %>
 	
-	
+	#se pone en solo lectura el textbox de autocompletar del código de pélicula
+@script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
+".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_code\"))"+
+".attr('readonly', 'readonly');"
 	
 	 @script = "$(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_kind_id\")"+
 ".empty().append(#{movie_kinds_to_options(@movie_kinds)});"
@@ -37,3 +40,11 @@ $ ->
 	        type: "POST"
 	        dataType: "script"
 	        success: (dato) ->
+	
+	
+	
+			$(document).ready ->
+			  return $(->
+			    $("FORM").nestedFields()
+			  )
+			  alert "entro!"

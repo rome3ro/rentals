@@ -11,10 +11,11 @@
   </tr>
 
 <% @movies.each do |movie| %>
+	<% movie.set_kind_of_movie %>
   <tr>
     <td><%= movie.code %></td>
     <td><%= movie.name %></td>
-    <td><%= movie.movie_kind.name %></td>
+    <td><%= movie.movie_kind.name if movie.movie_kind %></td>
     <td><%= link_to 'Show', movie %></td>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
     <td><%= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete %></td>

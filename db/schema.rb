@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   add_index "movies", ["code"], :name => "index_movies_on_code", :unique => true
 
   create_table "payments", :force => true do |t|
-    t.integer  "customer_id"
     t.decimal  "payment",        :precision => 10, :scale => 0
     t.integer  "rent_detail_id"
     t.datetime "created_at"
@@ -79,14 +78,16 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   create_table "rent_details", :force => true do |t|
     t.integer  "rent_id"
     t.integer  "movie_id"
-    t.string   "movie_code"
+    t.string   "movie_code_name"
     t.integer  "movie_kind_id"
     t.integer  "rent_price_id"
-    t.boolean  "delivered"
+    t.boolean  "delivered",                                        :default => false, :null => false
     t.datetime "delivered_date"
-    t.integer  "surcharge_days"
-    t.decimal  "surcharge",         :precision => 10, :scale => 0
-    t.decimal  "pending_surcharge", :precision => 10, :scale => 0
+    t.datetime "deliver_date"
+    t.integer  "surcharge_days",                                   :default => 0
+    t.decimal  "surcharge",         :precision => 10, :scale => 0, :default => 0
+    t.decimal  "pending_surcharge", :precision => 10, :scale => 0, :default => 0
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -105,7 +106,9 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   end
 
   create_table "rents", :force => true do |t|
-    t.string   "customer_code"
+    t.string   "customer_id"
+    t.string   "customer_code_name"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

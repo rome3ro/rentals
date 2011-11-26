@@ -1,6 +1,7 @@
 class RentsController < ApplicationController
   
-  autocomplete :customer, :code, :extra_data => [:name], :display_value => :display_method
+  #autocomplete :customer, :code, :extra_data => [:name, :id], :display_value => :display_method
+  autocomplete :customer, :name, :extra_data => [:code, :id], :display_value => :display_method
 
   # GET /rents
   # GET /rents.json
@@ -49,6 +50,8 @@ class RentsController < ApplicationController
   # POST /rents.json
   def create
     @rent = Rent.new(params[:rent])    
+    @movie_kinds = MovieKind.find(:all, :conditions => {:id => nil})
+    @rent_prices = RentPrice.find(:all, :conditions => {:id => nil})
     respond_to do |format|
       if @rent.save
         format.html { redirect_to @rent, notice: 'Rent was successfully created.' }
@@ -88,6 +91,21 @@ class RentsController < ApplicationController
     end
   end
   
+  def validate_customer
+    @split = params[:customer_id].split("-")
+    @customer = Customer.find_by_code(@split[0])   
+    @rents = Rent.find(:all, :joins => :rent_details, :conditions => ["customer_id = #{@customer.id} AND rent_details.delivered = 0"])
+   
+    if @rents.length > 0
+      @script = "$(\"#custom_msg\").append('El cliente #{params[:customer_id]} tiene pel&iacute;culas pendientes de entregar!');"
+      @script += "$(\"#rent_customer_code_name\").val('');"
+      @script += "$(\"#rent_customer_id\").val('');"
+    end
+   
+    respond_to do |format|       
+  	  format.json { render json: @script }        
+    end
+  end
   
   
   def update_data
@@ -95,76 +113,98 @@ class RentsController < ApplicationController
     @split = params[:movie_id].split("-")
     @movie = Movie.find_by_code(@split[0])    
     @movie.set_price_and_kind_of_movie        
-   
-     if !@movie.movie_kind.nil? && !@movie.rent_price.nil?                   
-        
-        #Se agrega el tipo de película (movie_kind)
-        @script = "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-         ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_kind_id\"))"+
-         ".val('#{@movie.movie_kind.id}');"+
-         "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"label[for=rent_rent_details_attributes_#{params[:item_id]}_movie_kind]\"))"+
-          ".text('#{@movie.movie_kind.name}');"
-               
-        #se llena el combo con los precios de la película
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_rent_price_id\"))"+
-          ".html(\"#{rent_price_to_options(item_to_collection(@movie.rent_price))}\");"
-          
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"label[for=rent_rent_details_attributes_#{params[:item_id]}_rent_price_id]\"))"+
-          ".text(\"#{number_to_currency(@movie.rent_price.price)}\");"
-        
-        #se asigna el id de la película
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-         ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_id\"))"+
-         ".val('#{@movie.id}');"
-        
-        #se asigna el día de entrega de la película
-         @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"label[for=rent_rent_details_attributes_#{params[:item_id]}_delivered_date]\"))"+
-          ".text('#{(Time.now + @movie.rent_price.days.days).strftime("Entregar %Y-%m-%d %H:%M")}');"
-         
-        
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_delivered_date_1i\"))"+
-          ".val(\"#{(Time.now + @movie.rent_price.days.days).year}\");"
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_delivered_date_2i\"))"+
-          ".val(\"#{(Time.now + @movie.rent_price.days.days).month}\");"
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_delivered_date_3i\"))"+
-          ".val(\"#{(Time.now + @movie.rent_price.days.days).day}\");"
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_delivered_date_4i\"))"+
-          ".val(\"#{(Time.now + @movie.rent_price.days.days).hour}\");"
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_delivered_date_5i\"))"+
-          ".val(\"#{(Time.now + @movie.rent_price.days.days).min}\");"
-         
-         
-        #se pone visible todo el detalle extra del detalle recién agregado
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-          ".find($(\".item_details\"))"+
-          ".show(300);"
-          
-        #se pone en solo lectura el textbox de autocompletar del código de pélicula
-        @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-         ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_code\"))"+
-         ".attr('readonly', 'readonly');"
-           
-     else
-       @script = exists_price_and_movie_kind(@movie)
-     end
+    
+    @rents = RentDetail.find(:all, :conditions => ["movie_id = #{@movie.id} AND delivered = 1"])
+    
+    if !@rents.nil? && @rents.length > 0
+      @script = "$(\"#custom_msg\").append('La pel&iacute;cula #{params[:movie_id]} ya est&aacute; rentada!');"
+      @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
+       ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_id\"))"+
+       ".val('');"
+      @script +=  "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
+        ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_code_name\"))"+
+        ".val('');"
+    else
+          if !@movie.movie_kind.nil? && !@movie.rent_price.nil?   
+            @script = generate_controls_data(params[:item_id], @movie, params[:cont])                               
+          else
+            @script = exists_price_and_movie_kind(@movie)
+          end       
+    end
+    
+    
     
     respond_to do |format|
-        puts @script
+       #puts @script
   		 format.json { render json: @script }        
   	 end
   end
   
-  def generar
+  def generate_controls_data(item, movie,contador)
+    #Se agrega el tipo de película (movie_kind)
+    script = get_movie_kind(item, movie)               
+    #se llena el combo con los precios de la película
+    script += get_rent_price(item, movie, contador)        
+              
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"label[for=rent_rent_details_attributes_#{item}_rent_price_id]\"))"+
+      ".text(\"#{number_to_currency(movie.rent_price.price)}\");"
     
+    #se asigna el id de la película
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+     ".find($(\"#rent_rent_details_attributes_#{item}_movie_id\"))"+
+     ".val('#{movie.id}');"
+    
+    #se asigna el día de entrega de la película
+    script += get_deliver_date(item, movie)         
+     
+    #se pone visible todo el detalle extra del detalle recién agregado
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\".item_details\"))"+
+      ".show(300);"
+  end
+  
+  def get_movie_kind(item, movie)
+    script = "$(\"fieldset[data-record-id='#{item}']\")"+
+     ".find($(\"#rent_rent_details_attributes_#{item}_movie_kind_id\"))"+
+     ".val('#{movie.movie_kind.id}');"+
+     "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"label[for=rent_rent_details_attributes_#{item}_movie_kind]\"))"+
+      ".text('#{movie.movie_kind.name}');"
+  end
+  
+  def get_rent_price(item, movie,contador)
+    price = movie.rent_price    
+    if movie.rent_price.movies_quantity > 1 && contador.to_i > 1  && (contador.to_i - movie.rent_price.movies_quantity) == 0
+      price.price = 0
+    end   
+    
+    script = "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"#rent_rent_details_attributes_#{item}_rent_price_id\"))"+
+      ".html(\"#{rent_price_to_options(item_to_collection(price))}\");"
+  end
+  
+  def get_deliver_date(item, movie)
+    script = "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"label[for=rent_rent_details_attributes_#{params[:item_id]}_deliver_date]\"))"+
+      ".text('#{(Time.now + movie.rent_price.days.days).strftime("Entregar %Y-%m-%d %H:%M")}');"
+             
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_1i\"))"+
+      ".val(\"#{(Time.now + movie.rent_price.days.days).year}\");"
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_2i\"))"+
+      ".val(\"#{(Time.now + movie.rent_price.days.days).month}\");"
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_3i\"))"+
+      ".val(\"#{(Time.now + movie.rent_price.days.days).day}\");"
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_4i\"))"+
+      ".val(\"#{(Time.now + movie.rent_price.days.days).hour}\");"
+    script += "$(\"fieldset[data-record-id='#{item}']\")"+
+      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_5i\"))"+
+      ".val(\"#{(Time.now + movie.rent_price.days.days).min}\");"
+      #return script
   end
    
    def exists_price_and_movie_kind(m)

@@ -10,7 +10,7 @@ class CreateCustomers < ActiveRecord::Migration
       t.date :birthday
       t.integer :gender_id
       t.string :email
-
+t.integer :user_id
       t.timestamps
     end
     add_index :customers, :code, :unique => true

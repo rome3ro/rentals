@@ -13,19 +13,22 @@
 <br/>
 <div id="custom_msg">	
 </div>
-<h2>Customer</h2>
+<h2>Cliente</h2>
   <div class="field">	
-    <%= f.autocomplete_field :customer_code, autocomplete_customer_code_rents_path, :size => 50 %><br/>		  
+    <%= f.autocomplete_field :customer_code_name, autocomplete_customer_name_rents_path, :size => 50, :id_element =>
+'#rent_customer_id' %><br/>		  
+	<%= f.hidden_field :customer_id %>	
+	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   </div>		
-<h2>Movies</h2>
-<a href="#" class="add">add movie</a>
+<h2>Películas</h2>
+<a href="#" class="add">Agregar</a>
   <div class="container">
 	<% @contador=0 %>
     <%= f.nested_fields_for :rent_details do |f| %>
       <fieldset class="item">
 	
 		<div class="field">
-       		<%= f.autocomplete_field :movie_code, autocomplete_movie_code_rent_details_path, :size => 30 %> 			
+       		<%= f.autocomplete_field :movie_code_name, autocomplete_movie_name_rent_details_path, :size => 50 %> 			
 		<span class="item_details">
 			<%= f.hidden_field :movie_id %>
 						
@@ -38,14 +41,14 @@
 			<span class="rent_price_value"> 
 			<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price) %>			
 			</span>
-			<span class="delivered_date_label"> 
-				<%= f.label :delivered_date %>				
+			<span class="deliver_date_label"> 
+				<%= f.label :deliver_date %>				
 			</span>
-			<span class="delivered_date_value"> 
-				<%= f.date_select :delivered_date, :discard_year => true%> 
+			<span class="deliver_date_value"> 
+				<%= f.date_select :deliver_date %> 
 			</span>
-		</span>				
-			<a href="#" class="remove">remove</a>
+		</span>
+			<a href="#" class="remove">quitar</a>
 	        <%= f.hidden_field :id %>
 			<%= f.hidden_field :_destroy %>
 		</div>

@@ -9,6 +9,7 @@ class CreateRentPrices < ActiveRecord::Migration
       t.decimal :surcharge
       t.integer :movie_kind_id
       t.integer :movies_quantity
+      t.integer :user_id
       t.timestamps
     end
     

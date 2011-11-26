@@ -11,14 +11,13 @@ Rentals::Application.routes.draw do
   resources :rent_prices
 
   resources :rent_details do
-    get :autocomplete_movie_code, :on => :collection
+    get :autocomplete_movie_name, :on => :collection
   end
   
   resources :rent_details
     
   resources :rents do    
-    get :autocomplete_customer_code, :on => :collection    
-    #get :update_data, :on => :collection
+    get :autocomplete_customer_name, :on => :collection        
     member do
           post :update_data
         end

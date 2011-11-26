@@ -4,7 +4,7 @@ class CreateWeekdays < ActiveRecord::Migration
     create_table :weekdays do |t|
       t.string :dayname
       t.integer :daynumber
-
+t.integer :user_id
       t.timestamps
     end
       Weekday.create :dayname => "Todos"

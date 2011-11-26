@@ -1,10 +1,16 @@
 class RentDetailsController < ApplicationController
-  autocomplete :movie, :code, :extra_data => [:name], :display_value => :display_method
+  autocomplete :movie, :name, :extra_data => [:code], :display_value => :display_method
   # GET /rent_details
   # GET /rent_details.json
+   
+  def get_autocomplete_items(parameters)
+      items = super(parameters)     
+      items = items.find_all{|item| item.rented == false }
+  end
+    
   def index
     @rent_details = RentDetail.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @rent_details }
@@ -15,7 +21,7 @@ class RentDetailsController < ApplicationController
   # GET /rent_details/1.json
   def show
     @rent_detail = RentDetail.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @rent_detail }
@@ -36,6 +42,7 @@ class RentDetailsController < ApplicationController
   # GET /rent_details/1/edit
   def edit
     @rent_detail = RentDetail.find(params[:id])
+    @rent_detail.set_surcharges
   end
 
   # POST /rent_details

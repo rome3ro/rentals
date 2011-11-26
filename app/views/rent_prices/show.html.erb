@@ -27,7 +27,8 @@
 
 <p>
   <b>Movie kind:</b>
-  <%= @rent_price.movie_kind.name %>
+  <%= @rent_price.movie_kind.name if @rent_price.movie_kind %>
+  <%= "Todos" if !@rent_price.movie_kind %>
 </p>
 
 <%= link_to 'Edit', edit_rent_price_path(@rent_price) %> |

@@ -2,9 +2,8 @@
 
 <table>
   <tr>
-    <th>Description</th>
+    <th>Name</th>
     <th>Price</th>
-    <th>Days</th>
     <th>Weekday</th>
     <th>Surcharge</th>
 <th>Movie Kind</th>
@@ -14,13 +13,12 @@
   </tr>
 
 <% @rent_prices.each do |rent_price| %>
-  <tr>
-    <td><%= rent_price.description %></td>
-    <td><%= rent_price.price %></td>
-    <td><%= rent_price.days %></td>
+  <tr>	
+    <td><%= rent_price.name %></td>
+    <td><%= rent_price.price %></td>    
     <td><%= rent_price.weekday.dayname %></td>
     <td><%= rent_price.surcharge %></td>
-	<td><%= rent_price.movie_kind.name %></td>
+	<td><%= rent_price.movie_kind.name if rent_price.movie_kind %></td>
 	
     <td><%= link_to 'Show', rent_price %></td>
     <td><%= link_to 'Edit', edit_rent_price_path(rent_price) %></td>

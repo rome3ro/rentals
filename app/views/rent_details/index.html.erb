@@ -1,37 +1,38 @@
-<h1>Listing rent_details</h1>
+<h1>Rentas</h1>
 
 <table>
   <tr>
-    <th>Rent</th>
-    <th>Movie</th>
-    <th>Rentprice</th>
-    <th>Delivered</th>
-    <th>Delivered date</th>
-    <th>Surcharge days</th>
-    <th>Surcharge</th>
-    <th>Pending surcharge</th>
+	<th>Cliente</th>
+    <th>Rentada</th>
+    <th>Película</th>
+    <th>Precio</th>
+	<th>Entregar el</th>
+    <th>Entregada</th>    
+    <th>Recargo(días)</th>
+    <th>Recargo(m.n.)</th>
+    <th>Pendiente</th>
     <th></th>
-    <th></th>
-    <th></th>
+    <th></th>  
   </tr>
 
 <% @rent_details.each do |rent_detail| %>
+	<% rent_detail.set_surcharges %>
   <tr>
-    <td><%= rent_detail.rent_id %></td>
-    <td><%= rent_detail.movie_id %></td>
-    <td><%= rent_detail.rentprice_id %></td>
-    <td><%= rent_detail.delivered %></td>
-    <td><%= rent_detail.delivered_date %></td>
+    <td><%= rent_detail.rent.customer_code_name %></td>
+    <td><%= rent_detail.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+    <td><%= rent_detail.movie_code_name %></td>
+    <td><%= number_to_currency(rent_detail.rent_price.price) %></td>
+    <td><%= rent_detail.deliver_date.strftime("%d-%m-%Y %H:%M") %></td>
+    <td><%= rent_detail.delivered_date.strftime("%d-%m-%Y %H:%M") if !rent_detail.delivered_date.nil? %></td>
     <td><%= rent_detail.surcharge_days %></td>
-    <td><%= rent_detail.surcharge %></td>
-    <td><%= rent_detail.pending_surcharge %></td>
-    <td><%= link_to 'Show', rent_detail %></td>
-    <td><%= link_to 'Edit', edit_rent_detail_path(rent_detail) %></td>
-    <td><%= link_to 'Destroy', rent_detail, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= number_to_currency(rent_detail.surcharge) %></td>
+    <td><%= number_to_currency(rent_detail.pending_surcharge) %></td>
+    <td><%= link_to 'Ver', rent_detail %></td>
+    <td><%= link_to 'Editar', edit_rent_detail_path(rent_detail) %></td>   
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Rent detail', new_rent_detail_path %>
+
