@@ -82,5 +82,29 @@ class MoviesController < ApplicationController
     end
   end
   
+  def get_extra_data
+        
+    movie_extra = Movies.find_by_title(params[:movie_name])
+    @script = "$(\"#movie_imdb_id\").val('#{movie_extra.id}');"+
+      "$(\"#movie_genres\").val('#{movie_extra.genres.to_s.tr("\"","").tr("[","").tr("]","")}');"+
+      "$(\"#movie_actors\").val('#{movie_extra.actors.to_s.tr("\"","").tr("[","").tr("]","")}');"+
+      "$(\"#movie_director\").val('#{movie_extra.director}');"+      
+      "$(\"img[alt='Poster']\").attr('src', '#{movie_extra.poster}');"
+      @script += get_released_date(movie_extra)
+    
+    
+    respond_to do |format|
+       
+  		 format.json { render json: @script }        
+  	 end
+  end
+  
+  def get_released_date(movie)
+                
+    script = "$(\"#movie_released_1i\").val(\"#{movie.released.year}\");"
+    script += "$(\"#movie_released_2i\").val(\"#{movie.released.month}\");"
+    script += "$(\"#movie_released_3i\").val(\"#{movie.released.day}\");"
+      
+  end
   
 end

@@ -162,6 +162,9 @@ class RentsController < ApplicationController
     script += "$(\"fieldset[data-record-id='#{item}']\")"+
       ".find($(\".item_details\"))"+
       ".show(300);"
+    
+    
+    
   end
   
   def get_movie_kind(item, movie)

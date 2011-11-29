@@ -58,7 +58,12 @@
 	<% @contador=@contador+1 %>
     <% end %>
   </div>
-  
+<br/>
+  <div class="totals">
+	<%= f.label :total %>	
+    <%= f.text_field :total, :readonly => true, :size => 20 %>
+  </div>
+<br/>
   <div class="actions">
     <%= f.submit %>
   </div>

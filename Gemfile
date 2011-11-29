@@ -9,6 +9,8 @@ gem 'mysql2', '0.3.7'
 gem 'devise'
 gem 'awesome_nested_fields'
 gem 'rails3-jquery-autocomplete'
+#gem 'ruby-tmdb'
+gem 'movies'
 
 # Gems used only for assets and not required
 # in production environments by default.

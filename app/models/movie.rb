@@ -1,9 +1,18 @@
 class Movie < ActiveRecord::Base      
-  attr_accessor :movie_kind, :rent_price, :rented
+  attr_accessor :movie_kind, :rent_price, :poster
   belongs_to :movie_format
-        
+  before_create :generate_code
   validates_uniqueness_of :code
-  #validates_presence_of :movie_kind, :message => "add movie kinds!"
+  validates_presence_of :movie_format, :message => "Falta el formato de pelicula!"
+ 
+  def generate_code
+    self.code = "MOV"+Time.now.to_i.to_s
+  end
+  
+  def poster
+    m = Movies.find_by_id(self.imdb_id)
+    return m.poster
+  end
   
   def rented
     @rents = RentDetail.find(:all, :conditions => ["movie_id = #{self.id} AND delivered = 0"])
@@ -60,8 +69,6 @@ class Movie < ActiveRecord::Base
         end
       
       if !self.movie_kind.nil?
-        #@prices = RentPrice.find(:all, :conditions => { :movie_kind_id => self.movie_kind.id })
-        #@prices = RentPrice.find(:all, :conditions => ["movie_kind_id = #{self.movie_kind.id} OR weekday_id = " ])
         @prices = RentPrice.find(:all, :joins => :weekday, :conditions => ["movie_kind_id = #{self.movie_kind.id} OR weekdays.daynumber = #{Time.new.wday}"])
       end
       

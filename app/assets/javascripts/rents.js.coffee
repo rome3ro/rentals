@@ -13,8 +13,8 @@ $ ->
         data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value + "&cont=" + $("INPUT[data-autocomplete*=autocomplete_movie_code]").length
         type: "POST"
         dataType: "script"
-        beforeSend: (dato) ->
-          #$(".container").empty().html "<img src=\"../assets/rails.png\" />"	  		      
+        success: (dato) ->
+          $(".container").empty().html "<img src=\"../assets/rails.png\" />"	  		      
 	    
 		$("#rent_customer_code_name").bind "railsAutocomplete.select", (event, data) ->
 	      $.ajax

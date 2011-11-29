@@ -27,7 +27,11 @@ Rentals::Application.routes.draw do
     
   resources :customers
   
-  resources :movies
+  resources :movies do
+     member do
+            post :get_extra_data
+          end
+  end
 
   resources :cities
 

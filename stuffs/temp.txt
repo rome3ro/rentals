@@ -41,10 +41,32 @@ $ ->
 	        dataType: "script"
 	        success: (dato) ->
 	
-	
+			script += "sum = 0;"+
+	        "$(\"label[for*=rent_price_id]\").each(function() {
+	              sum += Number($(this).val());alert('entro');
+	          });"+
+	          "//alert(sum);"
 	
 			$(document).ready ->
 			  return $(->
 			    $("FORM").nestedFields()
 			  )
 			  alert "entro!"
+			
+			
+			
+			
+			
+			$.ajax({
+			  url: "http://localhost:3000/rents/update_data",
+			  data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value + "&cont=" + $("INPUT[data-autocomplete*=autocomplete_movie_code]").length,
+			  type: "POST",
+			  dataType: "script",
+			  success: function() {
+			    sum = 0;
+			    $("label[id*='rent_price_id']").each(function() {
+			        sum += Number($(this).val());
+			    });
+			    alert(sum);
+			  }
+			});

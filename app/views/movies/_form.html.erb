@@ -12,22 +12,42 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
- <div class="field">
-    <%= f.label :released %><br />
-    <%= f.date_select :released, :start_year => 1980 %>
+    <%= f.label :Nombre %><br />
+    <%= f.text_field :name , :onchange => "$.ajax({
+	    complete:function(request){},
+	    data:'movie_name='+ $(this).val(),
+	    dataType:'script',
+	    type:'post',
+	    url: 'get_extra_data'
+	  });", :size => 60 %>
   </div>
  <div class="field">
-    <%= f.label :movie_format_id %><br />
-	<%= collection_select(:movie, :movie_format_id, MovieFormat.all, :id, :name, :prompt => true) %>
+    <%= f.label :IMDB %><br />
+    <%= f.text_field :imdb_id %>
   </div>
-
+<div class="field">
+    <%= f.label :Generos %><br />
+    <%= f.text_field :genres, :size => 60 %>
+  </div>
+<div class="field">
+    <%= f.label :Actores %><br />
+    <%= f.text_area :actors, :cols => 43, :rows => 4 %>
+  </div>
+<div class="field">
+    <%= f.label :Director %><br />
+    <%= f.text_field :director %>
+  </div>
+<div class="field">
+    <%= f.label :Fecha %><br /> 
+    <%= f.date_select :released, :start_year => 1970 %>
+  </div>
+ <div class="field">
+    <%= f.label :Formato %><br />
+	<%= collection_select(:movie, :movie_format_id, MovieFormat.all, :id, :name) %>
+  </div>
+<div class="field"> 
+    <%= image_tag(:poster) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

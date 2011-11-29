@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.date     "birthday"
     t.integer  "gender_id"
     t.string   "email"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,12 +39,14 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
 
   create_table "genders", :force => true do |t|
     t.string   "description"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "movie_formats", :force => true do |t|
     t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.string   "name"
     t.string   "description"
     t.integer  "expiration_days"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,6 +66,10 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.integer  "movie_format_id"
     t.string   "imdb_id"
     t.date     "released"
+    t.string   "genres"
+    t.string   "actors"
+    t.string   "director"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -71,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   create_table "payments", :force => true do |t|
     t.decimal  "payment",        :precision => 10, :scale => 0
     t.integer  "rent_detail_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.decimal  "surcharge",       :precision => 10, :scale => 0
     t.integer  "movie_kind_id"
     t.integer  "movies_quantity"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   create_table "rents", :force => true do |t|
     t.string   "customer_id"
     t.string   "customer_code_name"
+    t.decimal  "total",              :precision => 10, :scale => 0
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -142,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   create_table "weekdays", :force => true do |t|
     t.string   "dayname"
     t.integer  "daynumber"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
