@@ -3,8 +3,9 @@
 <table>
   <tr>
     <th>Cliente</th>
-    <th>Rentó el</th>
-    <th></th>
+    <th>Rentada el</th>
+    <th>Total</th>
+	<th></th>
     <th></th>
 	<th></th>
   </tr>
@@ -13,6 +14,7 @@
   <tr>
     <td><%= rent.customer_code_name %></td>
     <td><%= rent.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+	<td><%= number_to_currency(rent.total) %></td>
     <td><%= link_to 'Ver', rent %></td>
     <td><%= link_to 'Editar', edit_rent_path(rent) %></td>
     <td><%= link_to 'Borrar', rent, confirm: 'Estas seguro?', method: :delete %></td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111030061951) do
+ActiveRecord::Schema.define(:version => 20111205004707) do
 
   create_table "cities", :force => true do |t|
     t.string   "nombre"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   end
 
   create_table "customers", :force => true do |t|
-    t.string   "code",       :null => false
+    t.string   "code",            :null => false
     t.string   "name"
     t.string   "address"
     t.string   "phone"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.date     "birthday"
     t.integer  "gender_id"
     t.string   "email"
+    t.string   "document_number"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -61,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
   end
 
   create_table "movies", :force => true do |t|
-    t.string   "code",            :null => false
+    t.string   "code",                               :null => false
     t.string   "name"
     t.integer  "movie_format_id"
     t.string   "imdb_id"
@@ -69,6 +70,9 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.string   "genres"
     t.string   "actors"
     t.string   "director"
+    t.boolean  "checked",         :default => false
+    t.string   "poster"
+    t.date     "movie_date_type"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -80,6 +84,21 @@ ActiveRecord::Schema.define(:version => 20111030061951) do
     t.decimal  "payment",        :precision => 10, :scale => 0
     t.integer  "rent_detail_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "references", :force => true do |t|
+    t.integer  "customer_id"
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "cellphone"
+    t.integer  "city_id"
+    t.date     "birthday"
+    t.integer  "gender_id"
+    t.string   "email"
+    t.string   "document_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

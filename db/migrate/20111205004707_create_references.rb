@@ -1,7 +1,7 @@
-class CreateCustomers < ActiveRecord::Migration
+class CreateReferences < ActiveRecord::Migration
   def change
-    create_table :customers do |t|
-      t.string :code, :null => false
+    create_table :references do |t|
+      t.integer :customer_id
       t.string :name
       t.string :address
       t.string :phone
@@ -11,9 +11,8 @@ class CreateCustomers < ActiveRecord::Migration
       t.integer :gender_id
       t.string :email
       t.string :document_number
-      t.integer :user_id
+
       t.timestamps
     end
-    add_index :customers, :code, :unique => true
   end
 end

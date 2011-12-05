@@ -2,9 +2,10 @@
 
 <table>
   <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th>Movie Kind</th>
+    <th>Código</th>
+    <th>Nombre</th>
+    <th>Tipo</th>
+	<th>Checked</th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,6 +17,7 @@
     <td><%= movie.code %></td>
     <td><%= movie.name %></td>
     <td><%= movie.movie_kind.name if movie.movie_kind %></td>
+    <td><%= movie.checked %></td>
     <td><%= link_to 'Show', movie %></td>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
     <td><%= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete %></td>

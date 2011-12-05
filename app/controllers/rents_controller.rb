@@ -41,9 +41,8 @@ class RentsController < ApplicationController
   # GET /rents/1/edit
   def edit
     @rent = Rent.find(params[:id])
-    @movie_kinds = MovieKind.find(:all, :conditions => {:id => nil})
     @rent_prices = RentPrice.find(:all, :conditions => {:id => nil})
-    
+    puts @rent_prices.length
   end
 
   # POST /rents
@@ -91,11 +90,30 @@ class RentsController < ApplicationController
     end
   end
   
+  def remove_movie
+    @movie = Movie.find(params[:movie_id])
+    if @movie.checked
+      puts @movie.checked
+      @movie.checked = false
+      @movie.save
+    end
+    
+    #@rent_details = RentDetail.find(:all, :conditions => ["movie_id = #{params[:movie_id]} AND delivered = 1"])
+    
+    #if @rent_details.length > 0 
+    #  RentDetail.delete(@rent_details.id)
+    #end
+    
+    respond_to do |format|       
+  	  format.json { render json: @rent }        
+    end
+  end
+  
   def validate_customer
     @split = params[:customer_id].split("-")
     @customer = Customer.find_by_code(@split[0])   
     @rents = Rent.find(:all, :joins => :rent_details, :conditions => ["customer_id = #{@customer.id} AND rent_details.delivered = 0"])
-   
+
     if @rents.length > 0
       @script = "$(\"#custom_msg\").append('El cliente #{params[:customer_id]} tiene pel&iacute;culas pendientes de entregar!');"
       @script += "$(\"#rent_customer_code_name\").val('');"
@@ -113,8 +131,8 @@ class RentsController < ApplicationController
     @split = params[:movie_id].split("-")
     @movie = Movie.find_by_code(@split[0])    
     @movie.set_price_and_kind_of_movie        
-    
-    @rents = RentDetail.find(:all, :conditions => ["movie_id = #{@movie.id} AND delivered = 1"])
+        
+    @rents = RentDetail.find(:all, :conditions => ["movie_id = #{@movie.id} AND delivered = 0"])
     
     if !@rents.nil? && @rents.length > 0
       @script = "$(\"#custom_msg\").append('La pel&iacute;cula #{params[:movie_id]} ya est&aacute; rentada!');"
@@ -126,14 +144,14 @@ class RentsController < ApplicationController
         ".val('');"
     else
           if !@movie.movie_kind.nil? && !@movie.rent_price.nil?   
-            @script = generate_controls_data(params[:item_id], @movie, params[:cont])                               
+            @script = generate_controls_data(params[:item_id], @movie, params[:cont])
+            @movie.checked = true
+            @movie.save                         
           else
             @script = exists_price_and_movie_kind(@movie)
           end       
     end
-    
-    
-    
+        
     respond_to do |format|
        #puts @script
   		 format.json { render json: @script }        

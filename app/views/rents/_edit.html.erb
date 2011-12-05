@@ -41,7 +41,8 @@
 				<%= f.label(:rent_price_id, "") if @rent.rent_details[@contador].nil?%>				
 			</span>
 			<span class="rent_price_value" style="display:none"> 
-			<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price) %>			
+			<%= f.collection_select(:rent_price_id, @rent.rent_details[@contador].rent_price.to_collection, :id, :price) if !@rent.rent_details[@contador].nil?%>			
+			<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price) if @rent.rent_details[@contador].nil?%>
 			</span>
 			<span class="deliver_date_label"> 
 				<%= f.label(:delivered_date, @rent.rent_details[@contador].deliver_date.strftime("Entregar %d-%m-%Y %H:%M")) if !@rent.rent_details[@contador].nil?%>
@@ -63,7 +64,12 @@
 	<% @contador=@contador+1 %>
     <% end %>
   </div>
-  
+  <br/>
+  <div class="totals">
+	<%= f.label :total, "Total: $" %>	
+    <%= f.text_field :total, :readonly => true, :size => 20 %>
+  </div>
+<br/>
   <div class="actions">
     <%= f.submit %>
   </div>

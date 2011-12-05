@@ -1,5 +1,7 @@
 Rentals::Application.routes.draw do
     
+  resources :references
+
   resources :movie_formats
 
   resources :weekdays
@@ -20,7 +22,9 @@ Rentals::Application.routes.draw do
     get :autocomplete_customer_name, :on => :collection        
     member do
           post :update_data
+          post :remove_movie
         end
+    
   end
   
   resources :rents

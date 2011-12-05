@@ -15,11 +15,14 @@
 	</p>
 	<p>
 	  <b>Precio:</b>
-	  <%= d.rent_price.price %>
+	  <%= number_to_currency(d.rent_price.price) %>
 	</p>
 	
-
   <% end %>
+
+ <b>Total:</b>
+  <%= number_to_currency(@rent.total) %>
+
 </p>
 
 

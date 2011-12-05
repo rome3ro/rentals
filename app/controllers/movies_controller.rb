@@ -42,7 +42,11 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(params[:movie])
-    
+    if params[:tomar_fecha_salida]
+      @movie.movie_date_type = @movie.released
+    else
+      @movie.movie_date_type = @movie.created_at
+    end
     respond_to do |format|
       if @movie.save
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
@@ -84,11 +88,17 @@ class MoviesController < ApplicationController
   
   def get_extra_data
         
-    movie_extra = Movies.find_by_title(params[:movie_name])
+    movie_extra = Movies.find_by_title(params[:movie_name], {
+      tomatoes: "true"
+    })
+    
+    #puts movie_extra.inspect
+    
     @script = "$(\"#movie_imdb_id\").val('#{movie_extra.id}');"+
       "$(\"#movie_genres\").val('#{movie_extra.genres.to_s.tr("\"","").tr("[","").tr("]","")}');"+
       "$(\"#movie_actors\").val('#{movie_extra.actors.to_s.tr("\"","").tr("[","").tr("]","")}');"+
       "$(\"#movie_director\").val('#{movie_extra.director}');"+      
+      "$(\"#movie_poster\").val('#{movie_extra.poster}');"+
       "$(\"img[alt='Poster']\").attr('src', '#{movie_extra.poster}');"
       @script += get_released_date(movie_extra)
     

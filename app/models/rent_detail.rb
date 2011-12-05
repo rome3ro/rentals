@@ -11,7 +11,9 @@ class RentDetail < ActiveRecord::Base
   
   def set_date_delivered
     if self.delivered_changed? && self.delivered == true
-      self.delivered_date = DateTime.now      
+      self.delivered_date = DateTime.now    
+      self.movie.checked = false
+      self.movie.save        
     end
   end
   

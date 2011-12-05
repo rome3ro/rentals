@@ -9,7 +9,9 @@ class CreateMovies < ActiveRecord::Migration
       t.string :genres
       t.string :actors
       t.string :director
-      #t.boolean :rented
+      t.boolean :checked, :default => false
+      t.string :poster
+      t.date :movie_date_type
       t.integer :user_id      
 
       t.timestamps

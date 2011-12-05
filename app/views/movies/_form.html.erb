@@ -10,7 +10,8 @@
       </ul>
     </div>
   <% end %>
-
+	
+	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   <div class="field">
     <%= f.label :Nombre %><br />
     <%= f.text_field :name , :onchange => "$.ajax({
@@ -38,15 +39,23 @@
     <%= f.text_field :director %>
   </div>
 <div class="field">
-    <%= f.label :Fecha %><br /> 
-    <%= f.date_select :released, :start_year => 1970 %>
+    <%= f.label :released, "Fecha de salida" %><br /> 
+    <%= f.date_select :released, :start_year => 1960 %><br /> 
+ 	<%= label_tag "Tomar en cuenta fecha de salida" %>
+	<%= check_box_tag "tomar_fecha_salida" %>
   </div>
  <div class="field">
     <%= f.label :Formato %><br />
 	<%= collection_select(:movie, :movie_format_id, MovieFormat.all, :id, :name) %>
   </div>
+<div class="field">
+    <%= f.label :Checked if !@movie.new_record? %><br />
+	<%= f.check_box :checked if !@movie.new_record? %>
+  </div>
 <div class="field"> 
-    <%= image_tag(:poster) %>
+    <%= image_tag(@movie.poster) if !@movie.new_record? %>
+	<%= image_tag(:poster) if @movie.new_record? %>
+	<%= f.hidden_field :poster %>
   </div>
   <div class="actions">
     <%= f.submit %>

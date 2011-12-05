@@ -28,20 +28,71 @@
     <%= f.text_field :cellphone %>
   </div>
   <div class="field">
-    <%= f.label :Ciudad %><br />
-	<%= collection_select(:customer, :city_id, City.all, :id, :nombre, :prompt => true) %>
+    <%= f.label :City, "Ciudad" %><br />
+	<%= f.collection_select(:city_id, City.all, :id, :nombre, :prompt => true) %>
   </div>
   <div class="field">
     <%= f.label :Cumpleaños %><br />
-    <%= f.date_select :birthday, :start_year => 1960 %>
+    <%= f.date_select :birthday, :start_year => 1950 %>
   </div>
   <div class="field">
     <%= f.label :Genero %><br />
 	<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
   </div>
+	<div class="field">
+    <%= f.label :Document_number, "No. IFE" %><br />
+    <%= f.text_field :document_number %>
+  </div>
   <div class="field">
     <%= f.label :Email %><br />
     <%= f.text_field :email %>
+  </div>
+<h2>Referencias</h2>
+<a href="#" class="add">Agregar</a>
+  <div class="container">	
+    <%= f.nested_fields_for :references do |f| %>
+      <fieldset class="item">
+		<div class="field">
+       		<div class="field">
+			    <%= f.label :nombre %><br />
+			    <%= f.text_field :name, :size => 50 %>
+			  </div>
+			 <%= f.label :Direccion %><br />
+		    <%= f.text_area :address, :cols => 36, :rows => 2  %>
+			  <div class="field">
+			    <%= f.label :Telefono %><br />
+			    <%= f.text_field :phone %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Celular %><br />
+			    <%= f.text_field :cellphone %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Ciudad %><br />
+				<%= collection_select(:customer, :city_id, City.all, :id, :nombre, :prompt => true) %>
+			  </div>
+			 <div class="field">
+			    <%= f.label :Cumpleaños %><br />
+			    <%= f.date_select :birthday, :start_year => 1950 %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Genero %><br />
+				<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
+			  </div>
+			  <div class="field">
+			    <%= f.label :email %><br />
+			    <%= f.text_field :email %>
+			  </div>
+			  <div class="field">
+		    <%= f.label :Document_number, "No. IFE" %><br />
+		    <%= f.text_field :document_number %>
+		  </div>
+			<a href="#" class="remove">quitar</a>
+	        <%= f.hidden_field :id %>
+			<%= f.hidden_field :_destroy %>
+		</div>
+      </fieldset>	
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
