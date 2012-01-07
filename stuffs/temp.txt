@@ -121,4 +121,5 @@ $ ->
 
 
 
-
+							<%= plupload(@customer, :comprobantes, options={:plupload_container=>'uploader', :pluploader=>true, :field_name=>'customer[comprobantes_attributes][][archivo]'}) %>
+							<div id="uploader" name="uploader" style="width: 100%;"></div>

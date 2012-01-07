@@ -23,7 +23,7 @@
 <h2>Películas</h2>
 <a href="#" class="add">Agregar</a>
   <div class="container">
-	<% @contador=0 %>
+	
     <%= f.nested_fields_for :rent_details do |f| %>
       <fieldset class="item">
 	
@@ -55,7 +55,7 @@
 		
 		
       </fieldset>
-	<% @contador=@contador+1 %>
+	
     <% end %>
   </div>
 <br/>

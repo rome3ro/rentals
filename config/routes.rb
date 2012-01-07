@@ -29,12 +29,15 @@ Rentals::Application.routes.draw do
   
   resources :rents
     
-  resources :customers
+  resources :customers do
+    resources :comprobantes, :only => [:create, :destroy]
+   
+  end
   
   resources :movies do
      member do
             post :get_extra_data
-          end
+     end
   end
 
   resources :cities
@@ -106,5 +109,5 @@ Rentals::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id(.:format)))'
-  
+  match 'plupload_rails/_plupload_uploader', :controller=>'plupload_rails', :action=>'_plupload_uploader', :as=>'pluploader'
 end

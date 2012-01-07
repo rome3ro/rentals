@@ -47,6 +47,28 @@
     <%= f.label :Email %><br />
     <%= f.text_field :email %>
   </div>
+<h2>Comprobantes</h2>
+<a href="#" class="add">Agregar</a>
+  <div class="container">	
+		<% @contador=0 %>
+    <%= f.nested_fields_for :comprobantes do |f| %>
+      <fieldset class="item">
+		<div class="field">
+       		<div class="field">		
+	<%= f.file_field :archivo if @customer.comprobantes[@contador].nil? %><br />			     
+	<%= link_to(File.basename(@customer.comprobantes[@contador].archivo.url), @customer.comprobantes[@contador].archivo.url) if !@customer.comprobantes[@contador].nil? %><br />	
+		     
+		  	</div>
+			<a href="#" class="remove">quitar</a>
+	        <%= f.hidden_field :id %>
+			<%= f.hidden_field :_destroy %>
+		</div>
+      </fieldset>
+<% @contador=@contador+1 %>	
+    <% end %>
+  </div>
+
+<br/>
 <h2>Referencias</h2>
 <a href="#" class="add">Agregar</a>
   <div class="container">	
