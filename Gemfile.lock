@@ -36,6 +36,7 @@ GEM
       rails (>= 3.0.0)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    cancan (1.6.7)
     carrierwave (0.5.8)
       activesupport (~> 3.0)
     coffee-rails (3.1.1)
@@ -131,6 +132,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_nested_fields
+  cancan
   carrierwave
   coffee-rails (~> 3.1.0)
   devise

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  attr_accessible :role_ids
+  has_and_belongs_to_many :roles
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -7,4 +10,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation#, :remember_me
     validates :username, :presence => TRUE, :uniqueness => TRUE
+
+    def role?(role)
+        return !!self.roles.find_by_name(role.to_s.camelize)
+    end
+  
 end
