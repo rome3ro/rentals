@@ -7,13 +7,14 @@ gem 'rails', '3.1.0'
 
 gem 'mysql2', '0.3.7'
 gem 'devise'
-gem 'awesome_nested_fields'
 gem 'rails3-jquery-autocomplete'
 #gem 'ruby-tmdb'
 gem 'movies'
 gem 'plupload-rails3'
 gem 'carrierwave'
 gem 'cancan'
+gem 'kaminari'
+gem 'will_filter', "~> 3.1.0" 
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,6 +25,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'awesome_nested_fields'
+gem 'nested_fields'
 
 # Use unicorn as the web server
 # gem 'unicorn'

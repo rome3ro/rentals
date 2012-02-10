@@ -12,111 +12,49 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %><br />
+    <%= f.label t(:name) %><br />
     <%= f.text_field :name, :size => 50 %>
   </div>
   <div class="field">
-    <%= f.label :Direccion %><br />
+    <%= f.label t(:address) %><br />
     <%= f.text_area :address, :cols => 36, :rows => 2  %>
   </div>
   <div class="field">
-    <%= f.label :Telefono %><br />
+    <%= f.label t(:phone) %><br />
     <%= f.text_field :phone %>
   </div>
   <div class="field">
-    <%= f.label :Celular %><br />
+    <%= f.label t(:cellphone) %><br />
     <%= f.text_field :cellphone %>
   </div>
   <div class="field">
-    <%= f.label :City, "Ciudad" %><br />
+    <%= f.label t(:City) %><br />
 	<%= f.collection_select(:city_id, City.all, :id, :nombre, :prompt => true) %>
   </div>
   <div class="field">
-    <%= f.label :Cumpleaños %><br />
+    <%= f.label t(:birthday) %><br />
     <%= f.date_select :birthday, :start_year => 1950 %>
   </div>
   <div class="field">
-    <%= f.label :Genero %><br />
+    <%= f.label t(:gender) %><br />
 	<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
   </div>
-	<div class="field">
-    <%= f.label :Document_number, "No. IFE" %><br />
+  <div class="field">
+    <%= f.label t(:Document_number) %><br />
     <%= f.text_field :document_number %>
   </div>
   <div class="field">
-    <%= f.label :Email %><br />
+    <%= f.label t(:Email) %><br />
     <%= f.text_field :email %>
-  </div>
-<h2>Comprobantes</h2>
-<a href="#" class="add">Agregar</a>
-  <div class="container">	
-		<% @contador=0 %>
-    <%= f.nested_fields_for :comprobantes do |f| %>
-      <fieldset class="item">
-		<div class="field">
-       		<div class="field">		
-	<%= f.file_field :archivo if @customer.comprobantes[@contador].nil? %><br />			     
-	<%= link_to(File.basename(@customer.comprobantes[@contador].archivo.url), @customer.comprobantes[@contador].archivo.url) if !@customer.comprobantes[@contador].nil? %><br />	
-		     
-		  	</div>
-			<a href="#" class="remove">quitar</a>
-	        <%= f.hidden_field :id %>
-			<%= f.hidden_field :_destroy %>
-		</div>
-      </fieldset>
-<% @contador=@contador+1 %>	
-    <% end %>
   </div>
 
 <br/>
-<h2>Referencias</h2>
-<a href="#" class="add">Agregar</a>
-  <div class="container">	
-    <%= f.nested_fields_for :references do |f| %>
-      <fieldset class="item">
-		<div class="field">
-       		<div class="field">
-			    <%= f.label :nombre %><br />
-			    <%= f.text_field :name, :size => 50 %>
-			  </div>
-			 <%= f.label :Direccion %><br />
-		    <%= f.text_area :address, :cols => 36, :rows => 2  %>
-			  <div class="field">
-			    <%= f.label :Telefono %><br />
-			    <%= f.text_field :phone %>
-			  </div>
-			  <div class="field">
-			    <%= f.label :Celular %><br />
-			    <%= f.text_field :cellphone %>
-			  </div>
-			  <div class="field">
-			    <%= f.label :Ciudad %><br />
-				<%= collection_select(:customer, :city_id, City.all, :id, :nombre, :prompt => true) %>
-			  </div>
-			 <div class="field">
-			    <%= f.label :Cumpleaños %><br />
-			    <%= f.date_select :birthday, :start_year => 1950 %>
-			  </div>
-			  <div class="field">
-			    <%= f.label :Genero %><br />
-				<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
-			  </div>
-			  <div class="field">
-			    <%= f.label :email %><br />
-			    <%= f.text_field :email %>
-			  </div>
-			  <div class="field">
-		    <%= f.label :Document_number, "No. IFE" %><br />
-		    <%= f.text_field :document_number %>
-		  </div>
-			<a href="#" class="remove">quitar</a>
-	        <%= f.hidden_field :id %>
-			<%= f.hidden_field :_destroy %>
-		</div>
-      </fieldset>	
-    <% end %>
-  </div>
-  <div class="actions">
+
+<%= nested_fields_for f, :references %>
+<%= nested_fields_for f, :comprobantes %>
+
+
+<div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

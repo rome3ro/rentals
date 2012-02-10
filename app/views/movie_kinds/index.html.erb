@@ -1,10 +1,10 @@
-<h1>Listing movie_kinds</h1>
+<h1><%=t :movie_kinds%> </h1>
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Expiration days</th>
+    <th><%=t :Name%></th>
+    <th><%=t :Description%></th>
+    <th><%=t :Expiration_days%></th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,13 +15,13 @@
     <td><%= movie_kind.name %></td>
     <td><%= movie_kind.description %></td>
     <td><%= movie_kind.expiration_days %></td>
-    <td><%= link_to 'Show', movie_kind %></td>
-    <td><%= link_to 'Edit', edit_movie_kind_path(movie_kind) %></td>
-    <td><%= link_to 'Destroy', movie_kind, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to t('Show'), movie_kind %></td>
+    <td><%= link_to t('Edit'), edit_movie_kind_path(movie_kind) %></td>
+    <td><%= link_to t('Destroy'), movie_kind, confirm: t('Are you sure?'), method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Movie kind', new_movie_kind_path %>
+<%= link_to t('New'), new_movie_kind_path %>

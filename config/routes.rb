@@ -1,4 +1,6 @@
 Rentals::Application.routes.draw do
+
+  mount WillFilter::Engine => "/will_filter"
     
   resources :references
 
@@ -53,6 +55,7 @@ Rentals::Application.routes.draw do
   
   devise_for :users, :controllers => {:sessions => "sessions"}
   
+  resources :users
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

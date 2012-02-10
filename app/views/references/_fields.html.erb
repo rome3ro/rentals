@@ -1,0 +1,34 @@
+<div class="field">
+			    <%= f.label :nombre %><br />
+			    <%= f.text_field :name, :size => 50 %>
+			  </div>
+			 <%= f.label :Direccion %><br />
+		    <%= f.text_area :address, :cols => 36, :rows => 2  %>
+			  <div class="field">
+			    <%= f.label :Telefono %><br />
+			    <%= f.text_field :phone %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Celular %><br />
+			    <%= f.text_field :cellphone %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Ciudad %><br />
+				<%= collection_select(:customer, :city_id, City.all, :id, :nombre, :prompt => true) %>
+			  </div>
+			 <div class="field">
+			    <%= f.label :Cumpleaños %><br />
+			    <%= f.date_select :birthday, :start_year => 1950 %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Genero %><br />
+				<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
+			  </div>
+			  <div class="field">
+			    <%= f.label :email %><br />
+			    <%= f.text_field :email %>
+			  </div>
+			  <div class="field">
+		    <%= f.label t(:Document_number) %><br />
+		    <%= f.text_field :document_number %>
+		  </div>

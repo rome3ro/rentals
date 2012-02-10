@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107223833) do
+ActiveRecord::Schema.define(:version => 20120125042122) do
 
   create_table "cities", :force => true do |t|
     t.string   "nombre"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
   create_table "customers", :force => true do |t|
     t.string   "code",            :null => false
     t.string   "name"
+    t.string   "spouse"
     t.string   "address"
     t.string   "phone"
     t.string   "cellphone"
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
     t.integer  "gender_id"
     t.string   "email"
     t.string   "document_number"
+    t.boolean  "is_school_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -106,6 +108,8 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
     t.integer  "gender_id"
     t.string   "email"
     t.string   "document_number"
+    t.string   "parentesco"
+    t.integer  "tiempo_conocer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -157,8 +161,10 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "role_id", :null => false
-    t.integer "user_id", :null => false
+    t.integer  "role_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "states", :force => true do |t|
@@ -168,7 +174,7 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
+    t.string   "email"
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -178,6 +184,17 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "code"
+    t.string   "name"
+    t.string   "nombre_conyuge"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "cellphone"
+    t.integer  "city_id"
+    t.date     "birthday"
+    t.integer  "gender_id"
+    t.string   "document_number"
+    t.boolean  "is_school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username",                              :default => "", :null => false
@@ -194,5 +211,17 @@ ActiveRecord::Schema.define(:version => 20120107223833) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "will_filter_filters", :force => true do |t|
+    t.string   "type"
+    t.string   "name"
+    t.text     "data"
+    t.integer  "user_id"
+    t.string   "model_class_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "will_filter_filters", ["user_id"], :name => "index_will_filter_filters_on_user_id"
 
 end

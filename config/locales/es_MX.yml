@@ -1,0 +1,107 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+es_MX:
+    
+  activerecord:
+    models:
+      rent: Renta
+      movie: Película
+    attributes:
+      rent:
+        customer: "Cliente"
+        rent_details: "Rentas"
+      movie:
+        code: "código"
+        name: "nombre"
+        movie_kind: "tipo"
+        checked: "checada"
+        genres: "géneros"
+        actors: "actores"
+        director: "director"
+        released: "Fecha de salida"
+        movie_format: "formato"
+  
+  errors:
+    messages:
+      blank: "no puede estar vacío!"
+      
+  date:
+    formats:
+        default: "%d-%m-%Y"
+        short: "%b %d"
+        long: "%B %d, %Y"
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    order:
+      - :day
+      - :month
+      - :year
+      
+  customer: "Cliente"
+  rent_details: "Rentas"
+  hello: "Hello world"
+  Name: "Nombre"
+  name: "nombre"
+  address: "dirección"
+  Address: "Dirección"
+  Phone: "Teléfono"
+  phone: "teléfono"
+  Cellphone: "Móvil"
+  cellphone: "móvil"
+  City: "Ciudad"
+  city: "ciudad"
+  Birthday: "Cumpleaños"
+  birthday: "cumpleaños"
+  Gender: "Género"
+  gender: "género"
+  Email: "Correo"
+  email: "correo"
+  Customers: "Clientes"
+  customers: "clientes"
+  document number: "número documento"
+  Document Number: "Número Documento"
+  Document_number: "Número Documento"
+  Show: "Ver"
+  Edit: "Editar"
+  Destroy: "Eliminar"
+  Are you sure?: "¿Estás seguro?"
+  Back: "Volver"
+  State: "Estado"
+  state: "estado"
+  New: "Nuevo"
+  City: "Ciudad"
+  Spouse: "Cónyuge"
+  spouse: "cónyuge"
+  description: "descripción"
+  expiration_days: "días de expiración"
+  Expiration_days: "Días de expiración"
+  movie_kinds: "tipo de películas"
+  Editing: "Editando"
+  movie_formats: "formatos de película"
+  Description: "Descripción"
+  username: "nombre de usuario"
+  Username: "Nombre de usuario"
+  password: "contraseña"
+  Password: "Contraseña"
+  password_confirmation: "confirmar contraseña"
+  role: "rol"
+  movies: "películas"
+  Movies: "Películas"
+  movie: "película"
+  Movie: "Película"
+  code: "código"
+  Code: "Código"
+  kind: "tipo"
+  Kind: "Tipo"
+  checked: "checado"
+  Checked: "Checado"
+  code: "código"
+  name: "nombre"
+  movie_kind: "tipo"
+  checked: "checada"
+  genres: "géneros"
+  actors: "actores"
+  director: "Director"
+  released: "Fecha de salida"
+  movie_format: "formato"

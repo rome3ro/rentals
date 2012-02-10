@@ -11,7 +11,8 @@ class CreateReferences < ActiveRecord::Migration
       t.integer :gender_id
       t.string :email
       t.string :document_number
-
+      t.string :parentesco
+      t.integer :tiempo_conocer
       t.timestamps
     end
   end

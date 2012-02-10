@@ -1,11 +1,11 @@
-<h1>Listing movies</h1>
+<h1><%=t :Movies %></h1>
 
 <table>
   <tr>
-    <th>Código</th>
-    <th>Nombre</th>
-    <th>Tipo</th>
-	<th>Checked</th>
+    <th><%=t :Code %></th>
+    <th><%=t :Name %></th>
+    <th><%=t :Kind %></th>
+	<th><%=t :Checked %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,10 +14,10 @@
 <% @movies.each do |movie| %>
 	<% movie.set_kind_of_movie %>
   <tr>
-    <td><%= movie.code %></td>
-    <td><%= movie.name %></td>
-    <td><%= movie.movie_kind.name if movie.movie_kind %></td>
-    <td><%= movie.checked %></td>
+    <td><%=t movie.code %></td>
+    <td><%=t movie.name %></td>
+    <td><%=t movie.movie_kind.name if movie.movie_kind %></td>
+    <td><%= check_box_tag(:checked, :checked, movie.checked, :disabled => true) %></td>
     <td><%= link_to 'Show', movie %></td>
     <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
     <td><%= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete %></td>

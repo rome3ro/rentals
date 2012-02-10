@@ -13,15 +13,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label t(:name) %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label t(:description) %><br />
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :expiration_days %><br />
+    <%= f.label t(:expiration_days) %><br />
     <%= f.text_field :expiration_days, :maxlength => 2 %>
   </div>
   <div class="actions">

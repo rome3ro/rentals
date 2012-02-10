@@ -13,14 +13,14 @@
 <br/>
 <div id="custom_msg">	
 </div>
-<h2>Cliente</h2>
+<h2><%=t :customer %></h2>
   <div class="field">	
     <%= f.autocomplete_field :customer_code_name, autocomplete_customer_name_rents_path, :size => 50, :id_element =>
 '#rent_customer_id' %><br/>		  
 	<%= f.hidden_field :customer_id %>	
 	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   </div>		
-<h2>Películas</h2>
+<h2><%=t :rent_details %></h2>
 <a href="#" class="add">Agregar</a>
   <div class="container">
 	

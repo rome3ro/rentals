@@ -42,10 +42,11 @@ class MoviesController < ApplicationController
   # POST /movies.json
   def create
     @movie = Movie.new(params[:movie])
+    
     if params[:tomar_fecha_salida]
       @movie.movie_date_type = @movie.released
-    else
-      @movie.movie_date_type = @movie.created_at
+    else      
+      @movie.movie_date_type = DateTime.now
     end
     respond_to do |format|
       if @movie.save

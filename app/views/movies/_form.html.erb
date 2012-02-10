@@ -13,7 +13,7 @@
 	
 	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   <div class="field">
-    <%= f.label :Nombre %><br />
+    <%= f.label t(:name) %><br />
     <%= f.text_field :name , :onchange => "$.ajax({
 	    complete:function(request){},
 	    data:'movie_name='+ $(this).val(),
@@ -27,29 +27,29 @@
     <%= f.text_field :imdb_id %>
   </div>
 <div class="field">
-    <%= f.label :Generos %><br />
+    <%= f.label t(:genres) %><br />
     <%= f.text_field :genres, :size => 60 %>
   </div>
 <div class="field">
-    <%= f.label :Actores %><br />
+    <%= f.label t(:actors) %><br />
     <%= f.text_area :actors, :cols => 43, :rows => 4 %>
   </div>
 <div class="field">
-    <%= f.label :Director %><br />
+    <%= f.label t(:director) %><br />
     <%= f.text_field :director %>
   </div>
 <div class="field">
-    <%= f.label :released, "Fecha de salida" %><br /> 
+    <%= f.label t(:released) %><br /> 
     <%= f.date_select :released, :start_year => 1960 %><br /> 
  	<%= label_tag "Tomar en cuenta fecha de salida" %>
 	<%= check_box_tag "tomar_fecha_salida" %>
   </div>
  <div class="field">
-    <%= f.label :Formato %><br />
+    <%= f.label t(:movie_format) %><br />
 	<%= collection_select(:movie, :movie_format_id, MovieFormat.all, :id, :name) %>
   </div>
 <div class="field">
-    <%= f.label :Checked if !@movie.new_record? %><br />
+    <%= f.label t(:checked) if !@movie.new_record? %><br />
 	<%= f.check_box :checked if !@movie.new_record? %>
   </div>
 <div class="field"> 

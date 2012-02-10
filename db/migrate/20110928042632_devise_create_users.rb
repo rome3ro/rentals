@@ -9,7 +9,18 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
       # t.token_authenticatable
-
+      t.string :code#, :null => false
+      t.string :name
+      t.string :nombre_conyuge
+      t.string :address
+      t.string :phone
+      t.string :cellphone
+      t.integer :city_id
+      t.date :birthday
+      t.integer :gender_id
+      t.string :email
+      t.string :document_number
+      t.boolean :is_school_id
 
       t.timestamps
     end
@@ -21,6 +32,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
+    
+    User.create :username => "admin", :password => "*123"
+    
   end
 
   def self.down

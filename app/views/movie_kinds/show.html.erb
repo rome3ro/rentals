@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b><%=t :Name%>:</b>
   <%= @movie_kind.name %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b><%=t :Description%>:</b>
   <%= @movie_kind.description %>
 </p>
 
 <p>
-  <b>Expiration days:</b>
+  <b><%=t :Expiration_days%>:</b>
   <%= @movie_kind.expiration_days %>
 </p>
 
 
-<%= link_to 'Edit', edit_movie_kind_path(@movie_kind) %> |
-<%= link_to 'Back', movie_kinds_path %>
+<%= link_to t('Edit'), edit_movie_kind_path(@movie_kind) %> |
+<%= link_to t('Back'), movie_kinds_path %>

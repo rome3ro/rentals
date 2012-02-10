@@ -1,21 +1,21 @@
-<h1>Listing customers</h1>
-
+<h1><%=t :Customers%></h1>
+<%= will_filter_tag(@customers) %>
 <table>
   <tr>
     <th>Code</th>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Phone</th>
-    <th>Cellphone</th>
-    <th>City</th>
-    <th>Birthday</th>
-    <th>Gender</th>
-    <th>Email</th>
+    <th><%=t :Name %></th>
+    <th><%=t :Address%></th>
+    <th><%=t :Phone%></th>
+    <th><%=t :Cellphone%></th>
+    <th><%=t :City%></th>
+    <th><%=t :Birthday%></th>
+    <th><%=t :Gender%></th>
+    <th><%=t :Email%></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
-
+<%= paginate @customers , :outer_window => 3 %>
 <% @customers.each do |customer| %>
   <tr>
     <td><%= customer.code %></td>
@@ -23,17 +23,17 @@
     <td><%= customer.address %></td>
     <td><%= customer.phone %></td>
     <td><%= customer.cellphone %></td>
-    <td><%= customer.city.nombre %></td>
+    <td><%= customer.city.nombre if customer.city %></td>
     <td><%= customer.birthday %></td>
-    <td><%= customer.gender.description %></td>
+    <td><%= customer.gender.description if customer.gender %></td>
     <td><%= customer.email %></td>
-    <td><%= link_to 'Show', customer %></td>
-    <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
-    <td><%= link_to 'Destroy', customer, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to t('Show'), customer %></td>
+    <td><%= link_to t('Edit'), edit_customer_path(customer) %></td>
+    <td><%= link_to t('Destroy'), customer, confirm: t('Are you sure?'), method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Customer', new_customer_path %>
+<%= link_to t('New'), new_customer_path %>

@@ -3,6 +3,7 @@ class CreateCustomers < ActiveRecord::Migration
     create_table :customers do |t|
       t.string :code, :null => false
       t.string :name
+      t.string :spouse
       t.string :address
       t.string :phone
       t.string :cellphone
@@ -11,6 +12,7 @@ class CreateCustomers < ActiveRecord::Migration
       t.integer :gender_id
       t.string :email
       t.string :document_number
+      t.boolean :is_school_id
       t.integer :user_id
       t.timestamps
     end
