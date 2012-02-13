@@ -2,7 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 es_MX:
-    
+
+  views:
+    pagination:
+      first: "&laquo; Primer"
+      last: "Último &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Siguiente &rsaquo;"
+      truncate: "..."
+          
   activerecord:
     models:
       rent: Renta
@@ -37,7 +45,7 @@ es_MX:
       - :day
       - :month
       - :year
-      
+            
   customer: "Cliente"
   rent_details: "Rentas"
   hello: "Hello world"
@@ -80,8 +88,8 @@ es_MX:
   Editing: "Editando"
   movie_formats: "formatos de película"
   Description: "Descripción"
-  username: "nombre de usuario"
-  Username: "Nombre de usuario"
+  username: "usuario"
+  Username: "Usuario"
   password: "contraseña"
   Password: "Contraseña"
   password_confirmation: "confirmar contraseña"

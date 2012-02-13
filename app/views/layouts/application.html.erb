@@ -12,18 +12,19 @@
 <div id="container">
 	<div id="header">
 		<h1>
-			Video Frog's
-		</h1>
-		<div id="user_nav">  
-		  <% if user_signed_in? %>  
-		    Ha iniciado sesión como <%= current_user.username %>. No eres tú?  
-		    <%= link_to "Salir", destroy_user_session_path, :method => :delete %>  
-		  <% else %>  		    
-		    <%= link_to "Iniciar sesión", new_user_session_path %>  
-		  <% end %>  
-		</div>
+			<img src="../assets/frog.png" />&nbsp;Rentals Frog's&nbsp;
+			<span id="version">v1.0</span>
+			<span id="sesion">  
+			  <% if user_signed_in? %>  
+			    <%= current_user.username %>&nbsp;
+			    <%= link_to "Salir", destroy_user_session_path, :method => :delete %>  
+			  <% end %>  
+			</span>
+		</h1>		
 	</div>
     	
+	
+<div>
 	<div>
 		<% if user_signed_in? %>  
 <%= link_to(:Rentas, rents_path) %> | <%= link_to(:Entregas, rent_details_path) %> | <%= link_to(:Clientes, customers_path) %>
@@ -34,20 +35,18 @@
  | <%= link_to(:Usuarios, users_path) if current_user.role? :Administrador %>
 <% end %>  
 	</div>
-<div>
+<% if user_signed_in? %>  
  <% flash.each do |name, msg| %>   
     <%= content_tag :div, msg, :id => "flash#{name}" %> 
   <% end %>   
+<% end %>   
 </div>
 	<div id="content-container">
 		<div id="content">
 			<p>
 				<%=yield%>
 			</p>
-		</div>
-		<div id="aside" style="display:none">
-			&nbsp;
-		</div>
+		</div>		
 		<div id="footer">
 			Copyright © Frog's, 2012
 		</div>

@@ -1,5 +1,10 @@
 ol
 {
-	list-style-type:none;
-	
+	list-style-type:none;			
+/*	width:380px;*/
+}
+
+#user_new { 
+	float: left;
+	width: 230px; 
 }

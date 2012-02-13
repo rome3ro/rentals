@@ -21,7 +21,7 @@
 	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   </div>		
 <h2><%=t :rent_details %></h2>
-<a href="#" class="add">Agregar</a>
+<a href="#" class="add"><%=t :Agregat%></a>
   <div class="container">
 	
     <%= f.nested_fields_for :rent_details do |f| %>

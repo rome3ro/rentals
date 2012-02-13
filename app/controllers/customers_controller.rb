@@ -3,15 +3,22 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    #@customers = Customer.all
-    #@customers = Customer.order("name").page(params[:page]).per(15)
-    @customers = Customer.filter(:params => params)   
+    
+    customers_filter = Customer.find(:all, 
+    :conditions => ["code like ? or name like ? or address like ?", "%" + params[:customer][:code]+"%", 
+    "%" + params[:customer][:name]+"%", "%" + params[:customer][:address]+"%" ]) if !params[:customer].nil?
+    customers_filter = Customer.all if params[:customer].nil?
+    @customers = Kaminari.paginate_array(customers_filter).page(params[:page])
+    #@customers = Customer.order(:name).page params[:page]
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @customers }
+      format.csv { send_data customers_filter.to_csv }
     end
   end
 
+   
   # GET /customers/1
   # GET /customers/1.json
   def show
@@ -82,4 +89,7 @@ class CustomersController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  
+  
 end
