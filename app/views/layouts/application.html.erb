@@ -24,7 +24,7 @@
 	</div>
     	
 	
-<div>
+
 	<div>
 		<% if user_signed_in? %>  
 <%= link_to(:Rentas, rents_path) %> | <%= link_to(:Entregas, rent_details_path) %> | <%= link_to(:Clientes, customers_path) %>
@@ -35,14 +35,14 @@
  | <%= link_to(:Usuarios, users_path) if current_user.role? :Administrador %>
 <% end %>  
 	</div>
-<% if user_signed_in? %>  
- <% flash.each do |name, msg| %>   
-    <%= content_tag :div, msg, :id => "flash#{name}" %> 
-  <% end %>   
-<% end %>   
-</div>
-	<div id="content-container">
+
+	<div id="content-container">	
 		<div id="content">
+				<div>
+					<% flash.each do |name, msg| %>   
+					    <%= content_tag :div, msg, :id => "flash#{name}" %> 
+					  <% end %>			
+				</div>
 			<p>
 				<%=yield%>
 			</p>

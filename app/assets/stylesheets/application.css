@@ -26,41 +26,13 @@ h1 {
 	margin: 20px 0 20px 0; 
 }	
 	
-.forma label {	
-	font-size: 20px;
-	color: #666; 
-}
-
-.forma { 
-	float: left;
-	border: 1px solid #ddd; 
-	padding: 30px 40px 20px 40px; 
-	margin: 25px 0 0 0;
-	width: 715px;
-	background: #fff;
-			
-	/* -- CSS3 - define rounded corners for the form -- */	
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px; 		
-	
-	/* -- CSS3 - create a background graident -- */
-	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF)); 
-	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
-	
-	/* -- CSS3 - add a drop shadow -- */
-	-webkit-box-shadow:0px 0 50px #ccc;
-	-moz-box-shadow:0px 0 50px #ccc; 
-	box-shadow:0px 0 50px #ccc;		 		
-}	
-
 .tabla {
 	
     overflow:hidden;
     border:1px solid #d3d3d3;
     background:#fefefe;
     width:70%;
-    margin:5% auto 0;
+    margin:1% auto 0;
     -moz-border-radius:5px; /* FF1+ */
     -webkit-border-radius:5px; /* Saf3-4 */
     border-radius:5px;
@@ -247,15 +219,42 @@ And, since we've applied the background colors to td/th element because of IE, G
 	cursor:  pointer; 
 }
 
+.forma label {	
+	font-size: 14px;
+	color: #666; 
+}
+
+.forma { 
+	float: left;
+	border: 1px solid #ddd; 
+	padding: 30px 40px 20px 40px; 
+	margin: 25px 0 0 0;
+	width: 715px;
+	background: #fff;
+			
+	/* -- CSS3 - define rounded corners for the form -- */	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px; 		
+	
+	/* -- CSS3 - create a background graident -- */
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+	
+	/* -- CSS3 - add a drop shadow -- */
+	-webkit-box-shadow:0px 0 50px #ccc;
+	-moz-box-shadow:0px 0 50px #ccc; 
+	box-shadow:0px 0 50px #ccc;		 		
+}
 
 .forma fieldset { border: none; }
 
 .forma input, textarea { 		
-	padding: 8px; 
-	margin: 4px 0 20px 0; 
+	padding: 4px; 
+	margin: 2px 0 10px 0; 
 	background: #fff; 
 	width: 220px; 
-	font-size: 14px; 
+	font-size: 12px; 
 	color: #555; 
 	border: 1px #ddd solid;
 	
@@ -278,7 +277,7 @@ And, since we've applied the background colors to td/th element because of IE, G
 }
 	
 .forma input.submit { 	
-	width: 150px; 
+	width: 80px;	
 	color: #eee; 
 	/*text-transform: uppercase; */
 	margin-top: 10px;

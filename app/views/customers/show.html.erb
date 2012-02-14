@@ -27,7 +27,7 @@
 
 <p>
   <b>City:</b>
-  <%= @customer.city.nombre %>
+  <%= @customer.city.nombre if @customer.city %>
 </p>
 
 <p>
@@ -37,14 +37,14 @@
 
 <p>
   <b>Gender:</b>
-  <%= @customer.gender.description %>
+  <%= @customer.gender.description if @customer.gender %>
 </p>
 
 <p>
   <b>Email:</b>
   <%= @customer.email %>
 </p>
-
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+<p>
+<%= link_to t('Edit'), edit_customer_path(@customer) %> |
+<%= link_to t('Back'), customers_path %>
+</p>
