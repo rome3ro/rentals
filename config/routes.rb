@@ -1,6 +1,4 @@
 Rentals::Application.routes.draw do
-
-  mount WillFilter::Engine => "/will_filter"
     
   resources :references
 
@@ -26,14 +24,10 @@ Rentals::Application.routes.draw do
           post :update_data
           post :remove_movie
         end
-    
   end
-  
-  resources :rents
-    
+        
   resources :customers do
-    resources :comprobantes, :only => [:create, :destroy]
-   
+    resources :comprobantes, :only => [:create, :destroy]   
   end
   
   resources :movies do
@@ -111,6 +105,6 @@ Rentals::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id(.:format)))'
+  #match ':controller(/:action(/:id(.:format)))'
   match 'plupload_rails/_plupload_uploader', :controller=>'plupload_rails', :action=>'_plupload_uploader', :as=>'pluploader'
 end

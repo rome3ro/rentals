@@ -4,9 +4,12 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     
+    code = params[:customer][:code] if !params[:customer].nil?
+    name = params[:customer][:name] if !params[:customer].nil?
+    address = params[:customer][:address] if !params[:customer].nil?
     customers_filter = Customer.find(:all, 
-    :conditions => ["code like ? or name like ? or address like ?", "%" + params[:customer][:code]+"%", 
-    "%" + params[:customer][:name]+"%", "%" + params[:customer][:address]+"%" ]) if !params[:customer].nil?
+    :conditions => ["code like ? and name like ? and address like ?", "%" + code +"%", 
+    "%" + name +"%", "%" + address +"%" ]) if !params[:customer].nil?
     customers_filter = Customer.all if params[:customer].nil?
     @customers = Kaminari.paginate_array(customers_filter).page(params[:page])
     #@customers = Customer.order(:name).page params[:page]

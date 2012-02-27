@@ -31,7 +31,7 @@ h1 {
     overflow:hidden;
     border:1px solid #d3d3d3;
     background:#fefefe;
-    width:70%;
+    width:100%;
     margin:1% auto 0;
     -moz-border-radius:5px; /* FF1+ */
     -webkit-border-radius:5px; /* Saf3-4 */
@@ -283,7 +283,7 @@ And, since we've applied the background colors to td/th element because of IE, G
 	margin-top: 10px;
 	background-color: #339933;	
 	border: none;
-	
+
 	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
 	-webkit-transition: -webkit-box-shadow 0.3s linear;
 	

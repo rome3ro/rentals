@@ -1,9 +1,9 @@
-<h1>Rentas</h1>
-<table>
+<h1><%=t :Rents %></h1>
+<table class="tabla">
   <tr>
-    <th>Cliente</th>
-    <th>Rentada el</th>
-    <th>Total</th>
+    <th><%=t :Customer %></th>
+    <th><%=t :Rent %></th>
+    <th><%=t :Total %></th>
 	<th></th>
     <th></th>
 	<th></th>
@@ -14,13 +14,13 @@
     <td><%= rent.customer_code_name %></td>
     <td><%= rent.created_at.strftime("%d-%m-%Y %H:%M") %></td>
 	<td><%= number_to_currency(rent.total) %></td>
-    <td><%= link_to 'Ver', rent %></td>
-    <td><%= link_to 'Editar', edit_rent_path(rent) %></td>
-    <td><%= link_to 'Borrar', rent, confirm: 'Estas seguro?', method: :delete %></td>
+    <td><%= link_to t('Show'), rent %></td>
+    <td><%= link_to t('Edit'), edit_rent_path(rent) %></td>
+    <td><%= link_to t('Destroy'), rent, confirm: t('Are you sure?'), method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'Nueva Renta', new_rent_path %>
+<%= link_to t('New'), new_rent_path %>

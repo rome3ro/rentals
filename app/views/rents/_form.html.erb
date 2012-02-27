@@ -1,8 +1,7 @@
-<%= form_for(@rent) do |f| %>
+<%= form_for(@rent, :html => { :class => "forma"}) do |f| %>
   <% if @rent.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
-
       <ul>
       <% @rent.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -21,7 +20,7 @@
 	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   </div>		
 <h2><%=t :rent_details %></h2>
-<a href="#" class="add"><%=t :Agregat%></a>
+<a href="#" class="add"><%=t :Add%></a>
   <div class="container">
 	
     <%= f.nested_fields_for :rent_details do |f| %>

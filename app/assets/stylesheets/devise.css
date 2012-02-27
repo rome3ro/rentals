@@ -4,7 +4,14 @@ ol
 /*	width:380px;*/
 }
 
-#user_new { 
-	float: left;
-	width: 230px; 
+li { 
+	float: left;	
+	width: 280px; 
+}
+
+.forma { 
+		
+	margin:0px auto;
+	width: 280px;
+	 		
 }
