@@ -10,24 +10,24 @@
     </div>
   <% end %>
 <br/>
-<div id="custom_msg">	
+<div id="custom_msg">
 </div>
-<h2><%=t :customer %></h2>
+<h2><%=t :Customer %></h2>
   <div class="field">	
-    <%= f.autocomplete_field :customer_code_name, autocomplete_customer_name_rents_path, :size => 50, :id_element =>
-'#rent_customer_id' %><br/>		  
+    <%= f.autocomplete_field :customer_code_name, autocomplete_customer_name_rents_path, :id_element =>
+'#rent_customer_id', :class => "extralarge" %><br/>		  
 	<%= f.hidden_field :customer_id %>	
 	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
   </div>		
 <h2><%=t :rent_details %></h2>
-<a href="#" class="add"><%=t :Add%></a>
+<p><a href="#" class="add"><%=t :Add%></a></p>
   <div class="container">
 	
     <%= f.nested_fields_for :rent_details do |f| %>
       <fieldset class="item">
 	
 		<div class="field">
-       		<%= f.autocomplete_field :movie_code_name, autocomplete_movie_name_rent_details_path, :size => 50 %> 			
+       		<%= f.autocomplete_field :movie_code_name, autocomplete_movie_name_rent_details_path, :class => "extralarge"  %> <br />			
 		<span class="item_details">
 			<%= f.hidden_field :movie_id %>
 						
@@ -64,6 +64,6 @@
   </div>
 <br/>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Rentar", :class => "submit"%>
   </div>
 <% end %>

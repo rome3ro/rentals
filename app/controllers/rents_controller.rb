@@ -1,5 +1,5 @@
 class RentsController < ApplicationController
-  
+  load_and_authorize_resource
   #autocomplete :customer, :code, :extra_data => [:name, :id], :display_value => :display_method
   autocomplete :customer, :name, :extra_data => [:code, :id], :display_value => :display_method
 
@@ -7,6 +7,15 @@ class RentsController < ApplicationController
   # GET /rents.json
   def index
     @rents = Rent.all
+    
+    customer = params[:rent][:customer] if !params[:rent].nil?
+    created = params[:rent][:created_at] if !params[:rent].nil?
+    rents_filter = Rent.find(:all, 
+    :conditions => ["customer.id like ? and created_at >= ? ", "%" + customer +"%", 
+    "#" + created +"#" ]) if !params[:rent].nil?
+    rents_filter = Rent.all if params[:rent].nil?
+    @rents = Kaminari.paginate_array(rents_filter).page(params[:page])
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -208,7 +217,8 @@ class RentsController < ApplicationController
   def get_deliver_date(item, movie)
     script = "$(\"fieldset[data-record-id='#{item}']\")"+
       ".find($(\"label[for=rent_rent_details_attributes_#{params[:item_id]}_deliver_date]\"))"+
-      ".text('#{(Time.now + movie.rent_price.days.days).strftime("Entregar %Y-%m-%d %H:%M")}');"
+      ".text('#{"Entregar el " + t((Time.now + movie.rent_price.days.days).strftime("%A")) + " " + (Time.now + movie.rent_price.days.days).strftime("%d/%m/%y") }');"
+      #+ " " + (Time.now + movie.rent_price.days.days).strftime("%d/%m/%y")}');"
              
     script += "$(\"fieldset[data-record-id='#{item}']\")"+
       ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_1i\"))"+

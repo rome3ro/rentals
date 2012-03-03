@@ -1,6 +1,5 @@
 <h1><%=t :Movies %></h1>
-
-<table>
+<table class="tabla">
   <tr>
     <th><%=t :Code %></th>
     <th><%=t :Name %></th>
@@ -10,21 +9,32 @@
     <th></th>
     <th></th>
   </tr>
-
+<%= form_for(:movie, :url => { :action => "index" }, :html => {:method => :get} ) do |f| %>
+<tr>
+    <td><%= f.text_field :code, :class => "small" %></td>
+    <td><%= f.text_field :name, :class => "extralarge" %></td>
+    <td>&nbsp;</td>
+    <td><%= f.check_box :checked  %></td>
+    <td>&nbsp;</td>
+    <td><%= link_to t("Export"), params.merge(:format => :csv), :class => "filter_link" %></td>
+    <td><%= f.submit t("Filter"), :class => "submit" %></td>
+  </tr>
+<% end %>
+<%= paginate @movies %>
 <% @movies.each do |movie| %>
 	<% movie.set_kind_of_movie %>
   <tr>
-    <td><%=t movie.code %></td>
-    <td><%=t movie.name %></td>
-    <td><%=t movie.movie_kind.name if movie.movie_kind %></td>
+    <td><%= movie.code %></td>
+    <td><%= movie.name %></td>
+    <td><%= movie.movie_kind.name if movie.movie_kind %></td>
     <td><%= check_box_tag(:checked, :checked, movie.checked, :disabled => true) %></td>
-    <td><%= link_to 'Show', movie %></td>
-    <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-    <td><%= link_to 'Destroy', movie, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to t('Show'), movie %></td>
+    <td><%= link_to t('Edit'), edit_movie_path(movie) %></td>
+    <td><%= link_to t('Destroy'), movie, confirm: t('Are you sure?'), method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Movie', new_movie_path %>
+<%= link_to t('New'), new_movie_path %>

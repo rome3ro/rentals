@@ -12,9 +12,9 @@
 <div id="container">
 	<div id="header">
 		<h1>
-			<%= image_tag "frog.png" %>
-			&nbsp;Rentals Frog's&nbsp;
-			<span id="version">v1.0</span>
+			<%= image_tag "galaxy.png", :size => "32x32" %>
+			&nbsp;Video Galaxia&nbsp;
+			<span id="version">v1.1</span>
 			<span id="sesion">  
 			  <% if user_signed_in? %>  
 			    <%= current_user.username %>&nbsp;
@@ -28,28 +28,24 @@
 
 	<div>
 		<% if user_signed_in? %>  
-<%= link_to(:Rentas, rents_path) %> | <%= link_to(:Entregas, rent_details_path) %> | <%= link_to(:Clientes, customers_path) %>
- | <%= link_to(:Películas, movies_path) if current_user.role? :Administrador %>
- | <%= link_to(:Formatos, movie_formats_path) if current_user.role? :Administrador %>
- | <%= link_to(:Tipos, movie_kinds_path) if current_user.role? :Administrador %>
- | <%= link_to(:Precios, rent_prices_path) if current_user.role? :Administrador %>
- | <%= link_to(:Usuarios, users_path) if current_user.role? :Administrador %>
+			<%= link_to(:Rentas, rents_path) %> | <%= link_to(:Entregas, rent_details_path) %> | <%= link_to(:Clientes, customers_path) %> | <%= link_to(:Películas, movies_path) %>
+
+			 <%= "| ".html_safe + link_to(:Formatos, movie_formats_path) if current_user.role? :Administrador %>
+			 <%= "| ".html_safe + link_to(:Tipos, movie_kinds_path) if current_user.role? :Administrador %>
+			 <%= "| ".html_safe + link_to(:Precios, rent_prices_path) if current_user.role? :Administrador %>
+			 <%= "| ".html_safe + link_to(:Usuarios, users_path) if current_user.role? :Administrador %>
 <% end %>  
 	</div>
 
 	<div id="content-container">	
 		<div id="content">
-				<div>
-					<% flash.each do |name, msg| %>   
-					    <%= content_tag :div, msg, :id => "flash#{name}" %> 
-					  <% end %>			
-				</div>
+				
 			<p>
 				<%=yield%>
 			</p>
 		</div>		
 		<div id="footer">
-			Copyright © Frog's, 2012
+			Copyright © Video Galaxia, 2012.
 		</div>
 	</div>
 </div>

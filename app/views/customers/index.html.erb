@@ -3,13 +3,7 @@
   <tr>
     <th><%=t :Code %></th>
     <th><%=t :Name %></th>
-    <th><%=t :Address%></th>
-    <th><%=t :Phone%></th>
-    <th><%=t :Cellphone%></th>
-    <th><%=t :City%></th>
-    <th><%=t :Birthday%></th>
-    <th><%=t :Gender%></th>
-    <th><%=t :Email%></th>
+    <th><%=t :Address%></th> 
     <th></th>
     <th></th>
     <th></th>
@@ -17,17 +11,11 @@
 <%= form_for(:customer, :url => { :action => "index" }, :html => {:method => :get} ) do |f| %>
 <tr>
     <td><%= f.text_field :code, :class => "small" %></td>
-    <td><%= f.text_field :name, :class => "medium" %></td>
+    <td><%= f.text_field :name, :class => "extralarge" %></td>
     <td><%= f.text_field :address, :class => "large" %></td>
     <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td><%= link_to "Exportar", params.merge(:format => :csv), :class => "filter_link" %></td>
-    <td><%= f.submit "Filtrar", :class => "submit" %></td>
+    <td><%= link_to t("Export"), params.merge(:format => :csv), :class => "filter_link" %></td>
+    <td><%= f.submit t("Filter"), :class => "submit" %></td>
   </tr>
 <% end %>
 <%= paginate @customers %>
@@ -36,12 +24,6 @@
     <td><%= customer.code %></td>
     <td><%= customer.name %></td>
     <td><%= customer.address %></td>
-    <td><%= customer.phone %></td>
-    <td><%= customer.cellphone %></td>
-    <td><%= customer.city.nombre if customer.city %></td>
-    <td><%= customer.birthday %></td>
-    <td><%= customer.gender.description if customer.gender %></td>
-    <td><%= customer.email %></td>
     <td><%= link_to t('Show'), customer %></td>
     <td><%= link_to t('Edit'), edit_customer_path(customer) %></td>
     <td><%= link_to t('Destroy'), customer, confirm: t('Are you sure?'), method: :delete %></td>

@@ -3,11 +3,23 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
+    #@movies = Movie.all
+    #update_all_movies(@movies)
+    
+    code = params[:movie][:code] if !params[:movie].nil?
+    name = params[:movie][:name] if !params[:movie].nil?
+    check = params[:movie][:checked] if !params[:movie].nil?
+    #puts code.gsub("0", "") if !code.nil?
+    movies_filter = Movie.find(:all, 
+    :conditions => ["id like ? and name like ? and checked = ?", "%" + code.gsub("0", "") +"%", 
+    "%" + name +"%", check ]) if !params[:movie].nil?
+    movies_filter = Movie.all if params[:movie].nil?
+    @movies = Kaminari.paginate_array(movies_filter).page(params[:page])
     
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @movies }
+      format.csv { send_data movies_filter.to_csv }
     end
   end
 
@@ -63,7 +75,13 @@ class MoviesController < ApplicationController
   # PUT /movies/1.json
   def update
     @movie = Movie.find(params[:id])
-
+    
+    if params[:tomar_fecha_salida]
+      @movie.movie_date_type = @movie.released
+    else      
+      @movie.movie_date_type = DateTime.now
+    end
+      
     respond_to do |format|
       if @movie.update_attributes(params[:movie])
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
@@ -116,6 +134,24 @@ class MoviesController < ApplicationController
     script += "$(\"#movie_released_2i\").val(\"#{movie.released.month}\");"
     script += "$(\"#movie_released_3i\").val(\"#{movie.released.day}\");"
       
+  end
+  
+  def update_all_movies(movies)
+    movies.each do |mov|      
+         #movie_extra = Movies.find_by_title(mov.name)
+         m = Movie.find(mov.id)
+           #puts movie_extra.inspect
+           puts m.name + ' - ' + movie_extra.id.to_s
+           m.imdb_id = movie_extra.id
+           m.genres = movie_extra.genres.to_s.tr("\"","").tr("[","").tr("]","")
+           m.actors = movie_extra.actors.to_s.tr("\"","").tr("[","").tr("]","")
+           m.director = movie_extra.director
+           m.poster = movie_extra.poster
+           m.movie_date_type = DateTime.now
+           m.released = movie_extra.released
+           m.code = m.id.to_s.rjust(6, '0')
+           m.save
+   end        
   end
   
 end

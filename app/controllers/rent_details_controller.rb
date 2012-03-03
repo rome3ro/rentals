@@ -1,4 +1,5 @@
-class RentDetailsController < ApplicationController
+class RentDetailsController < ApplicationController  
+   load_and_authorize_resource
   autocomplete :movie, :name, :extra_data => [:code, :checked], :display_value => :display_method
   # GET /rent_details
   # GET /rent_details.json
@@ -10,7 +11,16 @@ class RentDetailsController < ApplicationController
   end
     
   def index
-    @rent_details = RentDetail.all
+    #@rent_details = RentDetail.all
+    
+    customer = params[:rent_detail][:customer] if !params[:rent_detail].nil?
+    created = params[:rent_detail][:created_at] if !params[:rent_detail].nil?
+    movie = params[:rent_detail][:movie_code_name] if !params[:rent_detail].nil?
+    rents_filter = RentDetail.find(:all, :joins => :rent,
+    :conditions => ["rents.customer_code_name like ? and rent_details.created_at >= ? and movie_code_name like ?", "%" + customer +"%", 
+    "#" + created +"#", "%" + movie +"%" ]) if !params[:rent_detail].nil?
+    rents_filter = RentDetail.all if params[:rent_detail].nil?
+    @rent_details = Kaminari.paginate_array(rents_filter).page(params[:page])
     
     respond_to do |format|
       format.html # index.html.erb

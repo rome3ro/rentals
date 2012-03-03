@@ -13,7 +13,7 @@ sumar = ->
 
 	validar_remove = (item) ->
 	  $.ajax
-	    url: "http://localhost:3000/rents/remove_movie"
+	    url: "remove_movie"
 	    data: "customer_id=" + data.item.value
 	    type: "POST"
 	    dataType: "script"
@@ -27,19 +27,19 @@ $ ->
     item.find(".rent_price_value").hide()
     item.find("INPUT[data-autocomplete*=autocomplete_movie_name]").bind "railsAutocomplete.select", (event, data) ->
       $.ajax
-        url: "http://localhost:3000/rents/update_data"
+        url: "update_data"
         data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value + "&cont=" + $("INPUT[data-autocomplete*=autocomplete_movie_code]").length
         type: "POST"
         dataType: "script"
         success: (dato) ->
           sumar()
 		beforeRemove: (item, remove) ->
-		    $.ajax url:"http://localhost:3000/rents/remove_movie", data: "movie_id="+item.find($("#rent_rent_details_attributes_"+item.attr("data-record-id")+"_movie_id")).val(), type:"POST", success: (dato) ->
+		    $.ajax url:"rents/remove_movie", data: "movie_id="+item.find($("#rent_rent_details_attributes_"+item.attr("data-record-id")+"_movie_id")).val(), type:"POST", success: (dato) ->
 		    remove()
 
 		$("#rent_customer_code_name").bind "railsAutocomplete.select", (event, data) ->
 	      $.ajax
-	        url: "http://localhost:3000/rents/validate_customer"
+	        url: "validate_customer"
 	        data: "customer_id=" + data.item.value
 	        type: "POST"
 	        dataType: "script"

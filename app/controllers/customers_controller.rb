@@ -1,8 +1,10 @@
 class CustomersController < ApplicationController
-    
+    load_and_authorize_resource
   # GET /customers
   # GET /customers.json
   def index
+    #@customers = Customer.all
+    #update_all_customers(@customers)
     
     code = params[:customer][:code] if !params[:customer].nil?
     name = params[:customer][:name] if !params[:customer].nil?
@@ -93,6 +95,15 @@ class CustomersController < ApplicationController
     end
   end
   
-  
+  def update_all_customers(customer)
+    customer.each do |cus|      
+         cus = Customer.find_by_code(cus.code)
+         #cus = Movie.find(mov.id)
+          
+         cus.code = cus.id.to_s.rjust(6, '0')
+         cus.save
+         puts cus.name
+   end        
+  end
   
 end

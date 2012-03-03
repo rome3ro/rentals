@@ -3,7 +3,7 @@ class CreateMovieKinds < ActiveRecord::Migration
     create_table :movie_kinds do |t|
       t.string :name
       t.string :description
-      t.integer :expiration_days
+      t.integer :expiration_days, :default => 0
 t.integer :user_id
       t.timestamps
     end

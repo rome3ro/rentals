@@ -156,6 +156,30 @@ And, since we've applied the background colors to td/th element because of IE, G
 	background: #eee; 
 }
 
+.tabla input.extralarge
+{
+	
+	padding: 4px; 
+	margin: 2px 0 2px 0; 
+	background: #fff; 
+	width: 200px;
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;
+}
+
+.tabla input.extralarge:hover { 
+	background: #eee; 
+}
+
 .tabla input.submit { 	
 	width: 60px; 
 	color: #eee; 
@@ -163,7 +187,7 @@ And, since we've applied the background colors to td/th element because of IE, G
 	/*text-transform: uppercase; */
 	/*margin-top: 10px;
 	height:20px;*/
-	background-color: #339933;	
+	background-color: #CE331B;	
 	border: none;
 	
 	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
@@ -175,8 +199,10 @@ And, since we've applied the background colors to td/th element because of IE, G
 	border-radius: 4px; 
 					
 	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
-	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BB2E17), to(#CE331B)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#CE331B, #BB2E17);
 }
 
 .tabla input.submit:hover { 		
@@ -194,7 +220,7 @@ And, since we've applied the background colors to td/th element because of IE, G
 	/*text-transform: uppercase; */
 	/*margin-top: 10px;
 	height:20px;*/
-	background-color: #339933;	
+	background-color: #CE331B;	
 	border: none;
 	text-decoration:none;
 	
@@ -207,8 +233,10 @@ And, since we've applied the background colors to td/th element because of IE, G
 	border-radius: 4px; 
 					
 	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
-	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BB2E17), to(#CE331B)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#CE331B, #BB2E17);
 }
 
 .tabla .filter_link:hover { 		
@@ -281,7 +309,8 @@ And, since we've applied the background colors to td/th element because of IE, G
 	color: #eee; 
 	/*text-transform: uppercase; */
 	margin-top: 10px;
-	background-color: #339933;	
+	/*background-color: #339933;	*/
+	background-color: #CE331B;
 	border: none;
 
 	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
@@ -293,8 +322,10 @@ And, since we've applied the background colors to td/th element because of IE, G
 	border-radius: 4px; 
 					
 	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
-	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BB2E17), to(#CE331B)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#CE331B, #BB2E17);
 } 
 
 .forma input.submit:hover { 		
@@ -361,7 +392,7 @@ body
 #header #sesion a
 {	
 	font-size:12px;
-	color:#339933;
+	color:#CE331B;
 	text-decoration:underline;
 }
 

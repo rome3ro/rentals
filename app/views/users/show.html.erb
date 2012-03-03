@@ -27,7 +27,7 @@
 
 <p>
   <b>City:</b>
-  <%= @user.city.nombre %>
+  <%= @user.city.nombre if @user.city %>
 </p>
 
 <p>
@@ -37,7 +37,7 @@
 
 <p>
   <b>Gender:</b>
-  <%= @user.gender.description %>
+  <%= @user.gender.description if @user.gender %>
 </p>
 
 <p>

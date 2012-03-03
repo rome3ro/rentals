@@ -4,14 +4,14 @@
   <b>Cliente:</b>
   <%= @rent.customer_code_name %>
   <% @rent.rent_details.each do |d| %>
-	
+<% d.movie.set_price_and_kind_of_movie %>	
 	<p>
 	  <b>Película:</b>
 	  <%= d.movie_code_name %>
 	</p>
 	<p>
 	  <b>Tipo:</b>
-	  <%= d.movie_kind.name %>
+	  <%= d.movie.movie_kind.name %>
 	</p>
 	<p>
 	  <b>Precio:</b>
@@ -19,10 +19,10 @@
 	</p>
 	
   <% end %>
-
+<p>
  <b>Total:</b>
   <%= number_to_currency(@rent.total) %>
-
+	</p>
 </p>
 
 
