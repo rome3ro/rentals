@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   
   def set_user_language
     I18n.locale = 'es_MX'
-    #puts 'jalo'
+   
   end
 end

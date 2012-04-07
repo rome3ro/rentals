@@ -3,7 +3,6 @@ class RentDetail < ActiveRecord::Base
   belongs_to :rent
   belongs_to :movie
   belongs_to :movie_kind
-  belongs_to :rent_price
   belongs_to :user
   validates_presence_of :movie
   before_update :set_date_delivered, :set_pending_surcharge
@@ -11,8 +10,7 @@ class RentDetail < ActiveRecord::Base
   
   def set_date_delivered
     if self.delivered_changed? && self.delivered == true
-      self.delivered_date = DateTime.now    
-      self.movie.checked = false
+      self.delivered_date = DateTime.now          
       self.movie.save        
     end
   end
@@ -37,14 +35,15 @@ class RentDetail < ActiveRecord::Base
       fecha_hasta = self.delivered_date.to_datetime
       fecha_desde = self.deliver_date.to_datetime+1.day
     else
-      fecha_hasta = DateTime.now
-      fecha_desde = self.deliver_date.to_datetime+1.day
+      fecha_hasta = Time.now
+      fecha_desde = self.deliver_date
     end
+   
+    difdays = (fecha_hasta - fecha_desde).to_i / 1.day
     
-    difdays = (fecha_hasta - fecha_desde).to_i
     if difdays > 0
       self.surcharge_days = difdays
-      self.surcharge = difdays*self.rent_price.surcharge
+      self.surcharge = difdays*self.deal_surcharge
       self.pending_surcharge = self.surcharge if !self.delivered
     end
     #puts (DateTime.now - self.deliver_date.to_datetime).to_i

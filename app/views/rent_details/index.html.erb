@@ -34,7 +34,7 @@
     <td><%= rent_detail.rent.customer_code_name %></td>
     <td><%= rent_detail.created_at.strftime("%d-%m-%Y %H:%M") %></td>
     <td><%= rent_detail.movie_code_name %></td>
-    <td><%= number_to_currency(rent_detail.rent_price.price) %></td>
+    <td><%= number_to_currency(rent_detail.price) %></td>
     <td><%= rent_detail.deliver_date.strftime("%d-%m-%Y") %></td>
     <td><%= rent_detail.delivered_date.strftime("%d-%m-%Y %H:%M") if !rent_detail.delivered_date.nil? %></td>
     <td><%= rent_detail.surcharge_days %></td>

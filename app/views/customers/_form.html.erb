@@ -10,14 +10,20 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="field">
+    <%= f.label t(:Document_number) %> <br />
+	(Debe ser No.IFE o matrícula escolar) <br/>
+    <%= f.text_field :document_number %>&nbsp;<%= label_tag "Es matrícula escolar" %><%= f.check_box :is_school_id %>
+  </div>
 
   <div class="field">
     <%= f.label t(:name) %><br />
-    <%= f.text_field :name, :size => 50 %>
+    <%= f.text_field :name%>
   </div>
   <div class="field">
     <%= f.label t(:address) %><br />
-    <%= f.text_area :address, :cols => 36, :rows => 2  %>
+    <%= f.text_area :address %>
   </div>
   <div class="field">
     <%= f.label t(:phone) %><br />
@@ -38,11 +44,7 @@
   <div class="field">
     <%= f.label t(:gender) %><br />
 	<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
-  </div>
-  <div class="field">
-    <%= f.label t(:Document_number) %><br />
-    <%= f.text_field :document_number %>
-  </div>
+  </div>  
   <div class="field">
     <%= f.label t(:Email) %><br />
     <%= f.text_field :email %>
@@ -50,11 +52,11 @@
 
 <br/>
 
-<%= nested_fields_for f, :references %>
+<%= nested_fields_for f, :references, :legend => t(:References) %>
 <%= nested_fields_for f, :comprobantes %>
 
 <br/>
 <div class="actions">
-    <%= f.submit "Crear", :class => "submit" %>
+    <%= f.submit t("Save"), :class => "submit" %>
   </div>
 <% end %>

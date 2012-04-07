@@ -7,14 +7,12 @@
 	<th><%=t :Checked %></th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 <%= form_for(:movie, :url => { :action => "index" }, :html => {:method => :get} ) do |f| %>
 <tr>
     <td><%= f.text_field :code, :class => "small" %></td>
     <td><%= f.text_field :name, :class => "extralarge" %></td>
     <td>&nbsp;</td>
-    <td><%= f.check_box :checked  %></td>
     <td>&nbsp;</td>
     <td><%= link_to t("Export"), params.merge(:format => :csv), :class => "filter_link" %></td>
     <td><%= f.submit t("Filter"), :class => "submit" %></td>
@@ -27,7 +25,6 @@
     <td><%= movie.code %></td>
     <td><%= movie.name %></td>
     <td><%= movie.movie_kind.name if movie.movie_kind %></td>
-    <td><%= check_box_tag(:checked, :checked, movie.checked, :disabled => true) %></td>
     <td><%= link_to t('Show'), movie %></td>
     <td><%= link_to t('Edit'), edit_movie_path(movie) %></td>
     <td><%= link_to t('Destroy'), movie, confirm: t('Are you sure?'), method: :delete %></td>
@@ -37,4 +34,4 @@
 
 <br />
 
-<%= link_to t('New'), new_movie_path %>
+<%= link_to t('New'), new_movie_path, :class => "filter_link" %>

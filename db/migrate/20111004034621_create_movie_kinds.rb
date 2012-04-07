@@ -4,7 +4,7 @@ class CreateMovieKinds < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.integer :expiration_days, :default => 0
-t.integer :user_id
+      t.integer :user_id
       t.timestamps
     end
     MovieKind.create :name => "Normal", :description => "Normal", :expiration_days => 0    

@@ -24,7 +24,7 @@ class Ability
           cannot :destroy, Customer
           
           can :manage, RentDetail
-          cannot :destroy, RentDetail
+          cannot :destroy, RentDetail        
           
         end
   end

@@ -1,13 +1,13 @@
 class RentDetailsController < ApplicationController  
    load_and_authorize_resource
-  autocomplete :movie, :name, :extra_data => [:code, :checked], :display_value => :display_method
+  autocomplete :movie, :name, :extra_data => [:code], :display_value => :display_method
   # GET /rent_details
   # GET /rent_details.json
    
   def get_autocomplete_items(parameters)
       items = super(parameters)     
       puts items.inspect
-      items = items.find_all{|item| item.rented == false && item.checked == false}
+      items = items.find_all{|item| item.rented == false }
   end
     
   def index

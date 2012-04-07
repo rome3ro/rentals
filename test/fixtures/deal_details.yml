@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  moviekind_id: 1
+  price: 9.99
+  days: 1
+  weekday: 1
+  surcharge: 9.99
+
+two:
+  moviekind_id: 1
+  price: 9.99
+  days: 1
+  weekday: 1
+  surcharge: 9.99

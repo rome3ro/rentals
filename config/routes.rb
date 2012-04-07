@@ -1,5 +1,9 @@
 Rentals::Application.routes.draw do
     
+  resources :deal_details
+
+  resources :deals
+
   resources :references
 
   resources :movie_formats
@@ -10,8 +14,6 @@ Rentals::Application.routes.draw do
 
   resources :movie_kinds
 
-  resources :rent_prices
-
   resources :rent_details do
     get :autocomplete_movie_name, :on => :collection
   end
@@ -19,10 +21,14 @@ Rentals::Application.routes.draw do
   resources :rent_details
     
   resources :rents do    
-    get :autocomplete_customer_name, :on => :collection        
+    get :autocomplete_customer_name, :on => :collection       
+    #get :generate_rent_details, on: :collection 
+    #post :generate_rent_details, on: :collection 
+    get :validate_movie_kind, on: :collection 
     member do
           post :update_data
-          post :remove_movie
+          post :remove_movie   
+          #put :generate_rent_details      
         end
   end
         
@@ -107,4 +113,6 @@ Rentals::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id(.:format)))'
   match 'plupload_rails/_plupload_uploader', :controller=>'plupload_rails', :action=>'_plupload_uploader', :as=>'pluploader'
+  match 'generate_rent_details', :controller => 'rents', :action => 'generate_rent_details'
+  
 end

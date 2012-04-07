@@ -1,0 +1,39 @@
+<table>
+	<tr>
+		<td>
+			<div class="field">
+			    <%= f.label t(:movie_kind) %><br />
+				<%= f.collection_select(:movie_kind_id, MovieKind.all, :id, :name, :prompt => true) %>    
+			  </div>
+		</td>
+		<td>
+			<div class="field">
+			    <%= f.label t(:Price) %><br />
+			    <%= f.text_field :price, :class => "small" %>
+			  </div>
+		</td>
+		<td>
+			<div class="field">
+			    <%= f.label t(:Days) %><br />
+			    <%= f.text_field :days, :maxlength => 1, :class => "small" %>
+			  </div>
+		</td>
+		<td>
+			<div class="field">
+			    <%= f.label t(:Surcharge) %><br />
+			    <%= f.text_field :surcharge, :class => "small" %>
+			  </div>
+		</td>
+		<td>
+			<div class="field">
+			    <%= f.label t(:movies_quantity) %><br />
+			    <%= f.text_field :movies_quantity, :maxlength => 2, :class => "small" %>
+			  </div>
+		</td>
+	</tr>
+</table>
+
+  
+  
+  
+

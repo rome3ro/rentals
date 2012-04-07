@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base      
-  attr_accessor :movie_kind, :rent_price
+  attr_accessor :movie_kind
   belongs_to :movie_format
   after_create :generate_code
   before_create :uppercase_name
@@ -32,12 +32,14 @@ class Movie < ActiveRecord::Base
   end
 
   def set_kind_of_movie
+    
+    #puts "1" + self.code
+    
+        
     @kinds = MovieKind.find(:all, :order => "expiration_days DESC")            
          
     @kinds.each do |k|      
-      
-      #puts "1" + k.name      
-
+          
       if (DateTime.now - self.movie_date_type).to_i < k.expiration_days
         self.movie_kind = k        
         break
@@ -54,37 +56,6 @@ class Movie < ActiveRecord::Base
     end
          
    end
-  
-  def set_price_and_kind_of_movie
-    
-     set_kind_of_movie()
-      
-      if !self.movie_kind.nil?
-        @prices = RentPrice.find(:all, :joins => :weekday, :conditions => ["movie_kind_id = #{self.movie_kind.id} OR weekdays.daynumber = #{Time.new.wday}"])
-        
-      end
-      
-      if !@prices.nil? && @prices.length > 0
-        
-        self.rent_price = @prices.detect { |p| p.weekday.daynumber == Time.new.wday  }      
-        #puts "0" + self.rent_price.to_s
-        if self.rent_price.nil?
-          self.rent_price = @prices.detect { |p| p.weekday.daynumber == nil }
-          #puts "1" + self.rent_price.id.to_s
-        end        
-      end
-          
-      if self.rent_price.nil?
-        @prices = RentPrice.find(:all)        
-        self.rent_price = @prices.detect { |p| p.movie_kind.nil? && p.weekday.daynumber == Time.new.wday  }   
-        if self.rent_price.nil?
-          self.rent_price = @prices.detect { |p| p.movie_kind.nil? }
-          #puts "1" + self.rent_price.id.to_s
-        end
-      end        
-  end
-  
-  
   
 end
 

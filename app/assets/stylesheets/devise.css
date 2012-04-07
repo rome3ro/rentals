@@ -72,7 +72,7 @@ li {
 	color: #eee; 
 	/*text-transform: uppercase; */
 	margin-top: 10px;
-	background-color: #CE331B;	
+	background-color: #464646;	
 	border: none;
 
 	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
@@ -86,8 +86,8 @@ li {
 	/*#D31F11 A3170B-- CSS3 Shadow - create a shadow around each input element -- */ 	
 	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
 	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BB2E17), to(#CE331B)); 
-	background: -moz-linear-gradient(25% 75% 90deg,#CE331B, #BB2E17);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#555555), to(#464646)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#464646, #555555);
 } 
 
 .forma_login input.submit:hover { 		

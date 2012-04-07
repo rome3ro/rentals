@@ -7,12 +7,11 @@ class MoviesController < ApplicationController
     #update_all_movies(@movies)
     
     code = params[:movie][:code] if !params[:movie].nil?
-    name = params[:movie][:name] if !params[:movie].nil?
-    check = params[:movie][:checked] if !params[:movie].nil?
+    name = params[:movie][:name] if !params[:movie].nil?    
     #puts code.gsub("0", "") if !code.nil?
     movies_filter = Movie.find(:all, 
-    :conditions => ["id like ? and name like ? and checked = ?", "%" + code.gsub("0", "") +"%", 
-    "%" + name +"%", check ]) if !params[:movie].nil?
+    :conditions => ["id like ? and name like ?", "%" + code.gsub("0", "") +"%", 
+    "%" + name +"%"]) if !params[:movie].nil?
     movies_filter = Movie.all if params[:movie].nil?
     @movies = Kaminari.paginate_array(movies_filter).page(params[:page])
     

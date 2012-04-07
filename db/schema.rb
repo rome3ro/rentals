@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107225833) do
+ActiveRecord::Schema.define(:version => 20120310233028) do
 
   create_table "cities", :force => true do |t|
     t.string   "nombre"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120107225833) do
   end
 
   create_table "customers", :force => true do |t|
-    t.string   "code",            :null => false
+    t.string   "code"
     t.string   "name"
     t.string   "spouse"
     t.string   "address"
@@ -46,6 +46,26 @@ ActiveRecord::Schema.define(:version => 20120107225833) do
   end
 
   add_index "customers", ["code"], :name => "index_customers_on_code", :unique => true
+
+  create_table "deal_details", :force => true do |t|
+    t.integer  "deal_id"
+    t.integer  "movie_kind_id"
+    t.decimal  "price",           :precision => 10, :scale => 0
+    t.integer  "days"
+    t.decimal  "surcharge",       :precision => 10, :scale => 0
+    t.integer  "movies_quantity"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
+  create_table "deals", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "weekday_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "genders", :force => true do |t|
     t.string   "description"
@@ -71,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20120107225833) do
   end
 
   create_table "movies", :force => true do |t|
-    t.string   "code",                               :null => false
+    t.string   "code"
     t.string   "name"
     t.integer  "movie_format_id"
     t.string   "imdb_id"
@@ -79,12 +99,11 @@ ActiveRecord::Schema.define(:version => 20120107225833) do
     t.string   "genres"
     t.string   "actors"
     t.string   "director"
-    t.boolean  "checked",         :default => false
     t.string   "poster"
     t.date     "movie_date_type"
     t.integer  "user_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "movies", ["code"], :name => "index_movies_on_code", :unique => true
@@ -119,35 +138,23 @@ ActiveRecord::Schema.define(:version => 20120107225833) do
     t.integer  "movie_id"
     t.string   "movie_code_name"
     t.integer  "movie_kind_id"
-    t.integer  "rent_price_id"
+    t.decimal  "price",             :precision => 10, :scale => 0
     t.boolean  "delivered",                                        :default => false, :null => false
     t.datetime "delivered_date"
     t.datetime "deliver_date"
     t.integer  "surcharge_days",                                   :default => 0
     t.decimal  "surcharge",         :precision => 10, :scale => 0, :default => 0
+    t.decimal  "deal_surcharge",    :precision => 10, :scale => 0, :default => 0
     t.decimal  "pending_surcharge", :precision => 10, :scale => 0, :default => 0
     t.integer  "user_id"
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
   end
 
-  create_table "rent_prices", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.decimal  "price",           :precision => 10, :scale => 0
-    t.integer  "days"
-    t.integer  "weekday_id"
-    t.decimal  "surcharge",       :precision => 10, :scale => 0
-    t.integer  "movie_kind_id"
-    t.integer  "movies_quantity"
-    t.integer  "user_id"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-  end
-
   create_table "rents", :force => true do |t|
     t.string   "customer_id"
     t.string   "customer_code_name"
+    t.integer  "deal_id"
     t.decimal  "total",              :precision => 10, :scale => 0
     t.integer  "user_id"
     t.datetime "created_at",                                        :null => false

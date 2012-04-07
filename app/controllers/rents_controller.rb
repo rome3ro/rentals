@@ -37,9 +37,8 @@ class RentsController < ApplicationController
   # GET /rents/new
   # GET /rents/new.json
   def new
-    @rent = Rent.new
-    @movie_kinds = MovieKind.find(:all, :conditions => {:id => nil})
-    @rent_prices = RentPrice.find(:all, :conditions => {:id => nil})
+    @rent = Rent.new       
+    #3.times {@rent.rent_details.build}        
     
     respond_to do |format|
       format.html # new.html.erb
@@ -50,8 +49,7 @@ class RentsController < ApplicationController
   # GET /rents/1/edit
   def edit
     @rent = Rent.find(params[:id])
-    @rent_prices = RentPrice.find(:all, :conditions => {:id => nil})
-    puts @rent_prices.length
+   
   end
 
   # POST /rents
@@ -59,7 +57,7 @@ class RentsController < ApplicationController
   def create
     @rent = Rent.new(params[:rent])    
     @movie_kinds = MovieKind.find(:all, :conditions => {:id => nil})
-    @rent_prices = RentPrice.find(:all, :conditions => {:id => nil})
+    #@rent.rent_details = @details
     respond_to do |format|
       if @rent.save
         format.html { redirect_to @rent, notice: 'Rent was successfully created.' }
@@ -71,8 +69,69 @@ class RentsController < ApplicationController
     end
   end
 
-  # PUT /rents/1
-  # PUT /rents/1.json
+  
+  def generate_rent_details
+
+    customer = params[:customer]
+    deal = params[:deal]            
+    deal = Deal.find_by_id(deal)        
+    count = params[:count].to_i
+    total = deal.deal_details.to_a.sum(&:price)
+    html=""
+    puts total.to_s
+    if !customer.nil? && !customer.empty?        
+
+      html+="<div id=\"deal\">"
+
+      for n in 0..deal.deal_details.length-1
+        for i in 0..deal.deal_details[n].movies_quantity-1
+          html+=generate_detail_fields(count, deal, n, total)          
+          count=count+1
+        end
+      end
+
+      html+="<br/><a href=\"#\" class=\"remove_deal\">quitar</a></div>"
+
+    end
+
+    respond_to do |format|       
+  	  format.json { render json: html }        
+    end
+  end  
+
+  def generate_detail_fields(count, deal, n, total)
+    deliver = Time.now + deal.deal_details[n].days.days
+    html="<input class=\"extralarge ui-autocomplete-input\" data-autocomplete=\"/rent_details/autocomplete_movie_name\" 
+    data-id-element=\"#rent_rent_details_attributes_#{count}_movie_id\" 
+    id=\"rent_rent_details_attributes_#{count}_movie_code_name\" name=\"rent[rent_details_attributes][#{count}][movie_code_name]\"
+    size=\"30\" type=\"text\" autocomplete=\"off\" role=\"textbox\" aria-autocomplete=\"list\" aria-haspopup=\"true\">"
+    html+="<input id=\"rent_rent_details_attributes_#{count}_movie_id\" name=\"rent[rent_details_attributes][#{count}][movie_id]\" type=\"hidden\">"
+    html+= "<span class='tag'>#{deal.deal_details[n].movie_kind.name}</span>"
+    html+="<input id=\"rent_rent_details_attributes_#{count}_movie_kind_id\" name=\"rent[rent_details_attributes][#{count}][movie_kind_id]\" type=\"hidden\" value=\"#{deal.deal_details[n].movie_kind.id}\">"
+    html+= "<span class='tag'>#{number_to_currency(deal.deal_details[n].price).to_s}</span>"        
+    html+="<input id=\"rent_rent_details_attributes_#{count}_price\" name=\"rent[rent_details_attributes][#{count}][price]\" type=\"hidden\" value=\"#{deal.deal_details[n].price}\">"
+    html+= "<span class='tag'>Entregar el #{t((deliver).strftime("%A"))}  #{(deliver).strftime("%d/%m/%y")}</span>" 
+    html+="<input id=\"rent_rent_details_attributes_#{count}_deliver_date\" name=\"rent[rent_details_attributes][#{count}][deliver_date]\" type=\"hidden\" value=\"#{(deliver).strftime("%y-%m-%d 00:00:00")}\">"        
+    html+="<input id=\"rent_rent_details_attributes_#{count}_deal_surcharge\" name=\"rent[rent_details_attributes][#{count}][deal_surcharge]\" type=\"hidden\" value=\"#{deal.deal_details[n].surcharge}\">"        
+    html+="<script>"+
+      "$(\"#rent_rent_details_attributes_#{count}_movie_code_name\").bind('railsAutocomplete.select', function(event, data){
+      /* Do something here */
+      //alert(data.item.id);
+      $.ajax({
+          complete:function(request){},
+          data:'movie='+ data.item.id 
+          + '&movie_kind=#{deal.deal_details[n].movie_kind.name}'
+          + '&control_id=rent_rent_details_attributes_#{count}_movie_code_name',
+          dataType:'script',
+          type:'post',
+          url: 'validate_movie_kind',
+      	  success: function(data) {
+
+      	  }
+        });
+    });</script>"
+  end
+
   def update
     @rent = Rent.find(params[:id])
 
@@ -98,23 +157,19 @@ class RentsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  def remove_movie
-    @movie = Movie.find(params[:movie_id])
-    if @movie.checked
-      puts @movie.checked
-      @movie.checked = false
-      @movie.save
+    
+  def validate_movie_kind
+    
+    @movie = Movie.find_by_id(params[:movie])  
+    @movie.set_kind_of_movie
+    @script =""
+    if @movie.movie_kind.name != params[:movie_kind]
+      @script += "alert('Favor de seleccionar una pelicula de tipo #{params[:movie_kind]}!');"
+      @script += "$(\"##{params[:control_id]}\").val('');"
     end
-    
-    #@rent_details = RentDetail.find(:all, :conditions => ["movie_id = #{params[:movie_id]} AND delivered = 1"])
-    
-    #if @rent_details.length > 0 
-    #  RentDetail.delete(@rent_details.id)
-    #end
-    
+   
     respond_to do |format|       
-  	  format.json { render json: @rent }        
+  	  format.json { render json: @script }        
     end
   end
   
@@ -124,7 +179,7 @@ class RentsController < ApplicationController
     @rents = Rent.find(:all, :joins => :rent_details, :conditions => ["customer_id = #{@customer.id} AND rent_details.delivered = 0"])
 
     if @rents.length > 0
-      @script = "$(\"#custom_msg\").append('El cliente #{params[:customer_id]} tiene pel&iacute;culas pendientes de entregar!');"
+      @script = "alert('El cliente #{params[:customer_id]} tiene pel&iacute;culas pendientes de entregar!');"
       @script += "$(\"#rent_customer_code_name\").val('');"
       @script += "$(\"#rent_customer_id\").val('');"
     end
@@ -153,9 +208,7 @@ class RentsController < ApplicationController
         ".val('');"
     else
           if !@movie.movie_kind.nil? && !@movie.rent_price.nil?   
-            @script = generate_controls_data(params[:item_id], @movie, params[:cont])
-            @movie.checked = true
-            @movie.save                         
+            @script = generate_controls_data(params[:item_id], @movie, params[:cont])                                    
           else
             @script = exists_price_and_movie_kind(@movie)
           end       
@@ -203,8 +256,19 @@ class RentsController < ApplicationController
       ".text('#{movie.movie_kind.name}');"
   end
   
-  def get_rent_price(item, movie,contador)
+  def get_rent_price(item, movie, contador)
+        
+    deal = Deal.find(:all, 
+    :joins => "INNER JOIN deal_details ON deal_details.deal_id = deals.id", 
+    :select => "deal_details.*, count(deal_details.id) items_count", 
+    :group => "deal_details.deal_id HAVING items_count = " + contador.to_s)
+    
+    puts deal.to_s if !deal.nil?
+    
     price = movie.rent_price    
+    #puts movie.rent_price.name
+    #puts movie.name + " " + contador.to_s + " " + movie.rent_price.movies_quantity.to_s if movie.rent_price
+    
     if movie.rent_price.movies_quantity > 1 && contador.to_i > 1  && (contador.to_i - movie.rent_price.movies_quantity) == 0
       price.price = 0
     end   

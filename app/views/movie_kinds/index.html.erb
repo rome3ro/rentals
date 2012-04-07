@@ -1,6 +1,6 @@
 <h1><%=t :movie_kinds%> </h1>
 
-<table>
+<table class="tabla">
   <tr>
     <th><%=t :Name%></th>
     <th><%=t :Description%></th>
@@ -24,4 +24,4 @@
 
 <br />
 
-<%= link_to t('New'), new_movie_kind_path %>
+<%= link_to t('New'), new_movie_kind_path, :class => "filter_link" %>

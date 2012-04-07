@@ -23,5 +23,9 @@ rails g scaffold weekday dayname:string daynumber:integer
 
 roman3ro$ rails g scaffold movie_format name:string
 
+rails g scaffold Deal name:string description:string weekday:integer
+
+rails g scaffold DealDetail moviekind_id:integer price:decimal days:integer weekday:integer surcharge:decimal
+
 #FALTA ABONOS DE RECARGOS
 #FALTA MANERA DE LIMPIAR RECARGOS
