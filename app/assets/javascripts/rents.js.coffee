@@ -17,7 +17,7 @@ $ ->
   $(".remove_deal").live "click", (event) ->
     $(this).closest("#deal").remove()
     sumar()
-  
+
   $("#rent_customer_code_name").bind "railsAutocomplete.select", (event, data) ->
     $.ajax
       url: "validate_customer"

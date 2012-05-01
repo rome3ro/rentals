@@ -9,4 +9,6 @@ class Rent < ActiveRecord::Base
   validates_presence_of :customer
   validates_presence_of :rent_details
   
+  
+  
 end

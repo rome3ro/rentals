@@ -6,17 +6,28 @@ class RentsController < ApplicationController
   # GET /rents
   # GET /rents.json
   def index
-    @rents = Rent.all
+    #@rents = Rent.all
     
-    customer = params[:rent][:customer] if !params[:rent].nil?
-    created = params[:rent][:created_at] if !params[:rent].nil?
-    rents_filter = Rent.find(:all, 
-    :conditions => ["customer.id like ? and created_at >= ? ", "%" + customer +"%", 
-    "#" + created +"#" ]) if !params[:rent].nil?
-    rents_filter = Rent.all if params[:rent].nil?
+    if params[:commit] == "Diario" 
+       rents_filter = Rent.joins(:customer).where("rents.created_at BETWEEN ? AND ?", DateTime.now.strftime("%y-%m-%d 00:00:00"),
+       DateTime.now.strftime("%y-%m-%d 23:59:59"))
+       
+       @suma = rents_filter.map(&:total).inject(:+).to_s
+     else
+       customer = params[:rent][:customer] if !params[:rent].nil? && !params[:rent][:customer].blank?
+       created_start = DateTime.parse(params[:rent][:created_at]).strftime("%y-%m-%d 00:00:00") if !params[:rent].nil? && !params[:rent][:created_at].blank?
+       created_end = DateTime.parse(params[:rent][:created_at]).strftime("%y-%m-%d 23:59:59") if !params[:rent].nil? && !params[:rent][:created_at].blank?
+
+       rents_filter = Rent.order('created_at DESC').all if customer.nil? && created_start.nil? && created_end.nil?
+       rents_filter = Rent.joins(:customer).where("customers.name like ?", "%" + customer +"%") if !customer.nil? && created_start.nil? && created_end.nil?
+       rents_filter = Rent.joins(:customer).where("rents.created_at BETWEEN ? AND ?", created_start,
+        created_end) if customer.nil? && !created_start.nil? && !created_end.nil?
+       rents_filter = Rent.joins(:customer).where("customers.name like ? AND rents.created_at BETWEEN ? AND ?", "%" + customer +"%", created_start,
+        created_end) if !customer.nil? && !created_start.nil? && !created_end.nil?   
+    end
+        
     @rents = Kaminari.paginate_array(rents_filter).page(params[:page])
     
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @rents }
