@@ -1,3 +1,4 @@
+require 'csv'
 class RentsController < ApplicationController
   load_and_authorize_resource
   #autocomplete :customer, :code, :extra_data => [:name, :id], :display_value => :display_method
@@ -9,21 +10,37 @@ class RentsController < ApplicationController
     #@rents = Rent.all
     
     if params[:commit] == "Diario" 
-       rents_filter = Rent.joins(:customer).where("rents.created_at BETWEEN ? AND ?", DateTime.now.strftime("%y-%m-%d 00:00:00"),
+       rents_filter = Rent.order('created_at DESC').joins(:customer).where("rents.created_at BETWEEN ? AND ?", DateTime.now.strftime("%y-%m-%d 00:00:00"),
        DateTime.now.strftime("%y-%m-%d 23:59:59"))
        
-       @suma = rents_filter.map(&:total).inject(:+).to_s
+       @suma = rents_filter.map(&:total).inject(:+).to_s if !rents_filter.nil?
      else
        customer = params[:rent][:customer] if !params[:rent].nil? && !params[:rent][:customer].blank?
        created_start = DateTime.parse(params[:rent][:created_at]).strftime("%y-%m-%d 00:00:00") if !params[:rent].nil? && !params[:rent][:created_at].blank?
        created_end = DateTime.parse(params[:rent][:created_at]).strftime("%y-%m-%d 23:59:59") if !params[:rent].nil? && !params[:rent][:created_at].blank?
 
-       rents_filter = Rent.order('created_at DESC').all if customer.nil? && created_start.nil? && created_end.nil?
-       rents_filter = Rent.joins(:customer).where("customers.name like ?", "%" + customer +"%") if !customer.nil? && created_start.nil? && created_end.nil?
-       rents_filter = Rent.joins(:customer).where("rents.created_at BETWEEN ? AND ?", created_start,
-        created_end) if customer.nil? && !created_start.nil? && !created_end.nil?
-       rents_filter = Rent.joins(:customer).where("customers.name like ? AND rents.created_at BETWEEN ? AND ?", "%" + customer +"%", created_start,
-        created_end) if !customer.nil? && !created_start.nil? && !created_end.nil?   
+       if params[:rent].nil?
+         rents_filter = Rent.order('created_at DESC').all
+         
+       else
+         if !customer.nil? && params[:rent][:created_at].blank?
+          rents_filter = Rent.order('created_at DESC').joins(:customer).where("customers.name like ?", "%" + customer +"%")
+          @suma = rents_filter.map(&:total).inject(:+).to_s if !rents_filter.nil?
+        else
+          if customer.nil? && !params[:rent][:created_at].blank?
+            rents_filter = Rent.order('created_at DESC').joins(:customer).where("rents.created_at BETWEEN ? AND ?", created_start, created_end)
+            @suma = rents_filter.map(&:total).inject(:+).to_s if !rents_filter.nil?
+          else
+            if !customer.nil? && !params[:rent][:created_at].blank?
+              rents_filter = Rent.order('created_at DESC').joins(:customer).where("customers.name like ? AND rents.created_at BETWEEN ? AND ?", 
+              "%" + customer +"%", created_start, created_end)
+              @suma = rents_filter.map(&:total).inject(:+).to_s if !rents_filter.nil?              
+            end
+          end
+        end
+       end
+       
+       
     end
         
     @rents = Kaminari.paginate_array(rents_filter).page(params[:page])
@@ -31,6 +48,23 @@ class RentsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @rents }
+      
+      format.csv { 
+        
+        csv_string = CSV.generate do |csv|
+                csv << ["Rentada", "Cliente", "Total"] 
+                rents_filter.each do |r|            
+                  csv << [r.created_at, r.customer_code_name, number_to_currency(r.total)]
+                end
+                csv << ["", "", number_to_currency(@suma)] 
+            end
+        
+        send_data csv_string, 
+            :type => 'text/csv; charset=iso-8859-1; header=present', 
+            :disposition => "attachment; filename=rents.csv" 
+        
+        }
+     
     end
   end
 
@@ -199,136 +233,6 @@ class RentsController < ApplicationController
   	  format.json { render json: @script }        
     end
   end
-  
-  
-  def update_data
-
-    @split = params[:movie_id].split("-")
-    @movie = Movie.find_by_code(@split[0])    
-    @movie.set_price_and_kind_of_movie        
-        
-    @rents = RentDetail.find(:all, :conditions => ["movie_id = #{@movie.id} AND delivered = 0"])
-    
-    if !@rents.nil? && @rents.length > 0
-      @script = "$(\"#custom_msg\").append('La pel&iacute;cula #{params[:movie_id]} ya est&aacute; rentada!');"
-      @script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-       ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_id\"))"+
-       ".val('');"
-      @script +=  "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
-        ".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_code_name\"))"+
-        ".val('');"
-    else
-          if !@movie.movie_kind.nil? && !@movie.rent_price.nil?   
-            @script = generate_controls_data(params[:item_id], @movie, params[:cont])                                    
-          else
-            @script = exists_price_and_movie_kind(@movie)
-          end       
-    end
-        
-    respond_to do |format|
-       #puts @script
-  		 format.json { render json: @script }        
-  	 end
-  end
-  
-  def generate_controls_data(item, movie,contador)
-    #Se agrega el tipo de película (movie_kind)
-    script = get_movie_kind(item, movie)               
-    #se llena el combo con los precios de la película
-    script += get_rent_price(item, movie, contador)        
-              
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"label[for=rent_rent_details_attributes_#{item}_rent_price_id]\"))"+
-      ".text(\"#{number_to_currency(movie.rent_price.price)}\");"
-    
-    #se asigna el id de la película
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-     ".find($(\"#rent_rent_details_attributes_#{item}_movie_id\"))"+
-     ".val('#{movie.id}');"
-    
-    #se asigna el día de entrega de la película
-    script += get_deliver_date(item, movie)         
-     
-    #se pone visible todo el detalle extra del detalle recién agregado
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\".item_details\"))"+
-      ".show(300);"
-    
-    
-    
-  end
-  
-  def get_movie_kind(item, movie)
-    script = "$(\"fieldset[data-record-id='#{item}']\")"+
-     ".find($(\"#rent_rent_details_attributes_#{item}_movie_kind_id\"))"+
-     ".val('#{movie.movie_kind.id}');"+
-     "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"label[for=rent_rent_details_attributes_#{item}_movie_kind]\"))"+
-      ".text('#{movie.movie_kind.name}');"
-  end
-  
-  def get_rent_price(item, movie, contador)
-        
-    deal = Deal.find(:all, 
-    :joins => "INNER JOIN deal_details ON deal_details.deal_id = deals.id", 
-    :select => "deal_details.*, count(deal_details.id) items_count", 
-    :group => "deal_details.deal_id HAVING items_count = " + contador.to_s)
-    
-    puts deal.to_s if !deal.nil?
-    
-    price = movie.rent_price    
-    #puts movie.rent_price.name
-    #puts movie.name + " " + contador.to_s + " " + movie.rent_price.movies_quantity.to_s if movie.rent_price
-    
-    if movie.rent_price.movies_quantity > 1 && contador.to_i > 1  && (contador.to_i - movie.rent_price.movies_quantity) == 0
-      price.price = 0
-    end   
-    
-    script = "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"#rent_rent_details_attributes_#{item}_rent_price_id\"))"+
-      ".html(\"#{rent_price_to_options(item_to_collection(price))}\");"
-  end
-  
-  def get_deliver_date(item, movie)
-    script = "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"label[for=rent_rent_details_attributes_#{params[:item_id]}_deliver_date]\"))"+
-      ".text('#{"Entregar el " + t((Time.now + movie.rent_price.days.days).strftime("%A")) + " " + (Time.now + movie.rent_price.days.days).strftime("%d/%m/%y") }');"
-      #+ " " + (Time.now + movie.rent_price.days.days).strftime("%d/%m/%y")}');"
-             
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_1i\"))"+
-      ".val(\"#{(Time.now + movie.rent_price.days.days).year}\");"
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_2i\"))"+
-      ".val(\"#{(Time.now + movie.rent_price.days.days).month}\");"
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_3i\"))"+
-      ".val(\"#{(Time.now + movie.rent_price.days.days).day}\");"
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_4i\"))"+
-      ".val(\"#{(Time.now + movie.rent_price.days.days).hour}\");"
-    script += "$(\"fieldset[data-record-id='#{item}']\")"+
-      ".find($(\"#rent_rent_details_attributes_#{item}_deliver_date_5i\"))"+
-      ".val(\"#{(Time.now + movie.rent_price.days.days).min}\");"
-      #return script
-  end
-   
-   def exists_price_and_movie_kind(m)
-     
-     if m.rent_price.nil?
-       script = "alert('NO EXISTEN RENT PRICES!');"
-     end
-     
-     if m.rent_price.nil? && !m.movie_kind.nil?
-         script = "alert('NO EXISTEN RENT PRICES PARA: ' + '#{m.movie_kind.name}');"
-      end    
-      
-      if m.movie_kind.nil?
-         script += "alert('NO EXISTEN MOVIE KINDS!');"      
-      end
-      
-      return script      
-   end
    
    def item_to_collection(obj)
      arr = [ obj ]

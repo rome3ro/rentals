@@ -1,5 +1,6 @@
 include ActionView::Helpers::NumberHelper
 class Rent < ActiveRecord::Base
+  acts_as_xlsx :columns => [:created_at, :customer_code_name, :total]
   belongs_to :user
   has_many :rent_details, :dependent => :destroy
   belongs_to :customer

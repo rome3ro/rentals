@@ -19,7 +19,20 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @customers }
-      format.csv { send_data customers_filter.to_csv }
+      format.csv { 
+        
+        csv_string = CSV.generate do |csv|
+                csv << [t("Code"), t("Name")] 
+                customers_filter.each do |r|            
+                  csv << [r.code, r.name]
+                end
+            end
+        
+        send_data csv_string, 
+            :type => 'text/csv; charset=iso-8859-1; header=present', 
+            :disposition => "attachment; filename=#{t("customers")}.csv" 
+        
+        }
     end
   end
 

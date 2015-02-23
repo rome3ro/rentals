@@ -1,3 +1,4 @@
+require 'csv'
 class MoviesController < ApplicationController
   load_and_authorize_resource
   # GET /movies
@@ -18,7 +19,20 @@ class MoviesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @movies }
-      format.csv { send_data movies_filter.to_csv }
+      format.csv { 
+        
+        csv_string = CSV.generate do |csv|
+                csv << [t("Code"), t("Name")] 
+                movies_filter.each do |r|            
+                  csv << [r.code, r.name]
+                end
+            end
+        
+        send_data csv_string, 
+            :type => 'text/csv; charset=iso-8859-1; header=present', 
+            :disposition => "attachment; filename=movies.csv" 
+        
+        }
     end
   end
 
