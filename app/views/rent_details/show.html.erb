@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cliente:</b>
+  <%= @rent_detail.rent.customer_code_name %>
+</p>
+
+<p>
+  <b>Película:</b>
+  <%= @rent_detail.movie_code_name %>
+</p>
+
+<p>
+  <b>Precio:</b>
+  <%= number_to_currency(@rent_detail.price) %>
+</p>
+
+<p>
+  <b>Entregar el:</b>
+  <%= @rent_detail.deliver_date.strftime("%d-%m-%Y %H:%M") %>
+</p>
+
+
+<p>
+  <b>Entregada:</b>
+ <%= check_box_tag(@rent_detail.delivered, nil, @rent_detail.delivered, :disabled => true) %>
+</p>
+
+<p>
+  <b>Entregada el:</b>
+  <%= @rent_detail.delivered_date.strftime("%d-%m-%Y %H:%M") if !@rent_detail.delivered_date.nil? %>
+</p>
+
+<p>
+  <b>Recargos(días):</b>
+  <%= @rent_detail.surcharge_days %>
+</p>
+
+<p>
+  <b>Recargos(m.n.):</b>
+  <%= number_to_currency(@rent_detail.surcharge) %>
+</p>
+
+<p>
+  <b>Pendiente(m.n.):</b>
+  <%= number_to_currency(@rent_detail.pending_surcharge) %>
+</p>
+
+
+<%= link_to 'Editar', edit_rent_detail_path(@rent_detail) %> |
+<%= link_to 'Volver', rent_details_path %>

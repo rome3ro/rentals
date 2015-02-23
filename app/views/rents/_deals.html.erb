@@ -1,0 +1,12 @@
+<a class="tag" href="javascript:void(0)" onclick="$.ajax({
+    complete:function(request){},
+    data:'customer='+ $('#rent_customer_code_name').val() + '&deal=<%= deals.id %>'
+	+ '&count=' + $('INPUT[data-autocomplete*=autocomplete_movie_name]').length,
+    dataType:'html',
+    type:'post',
+    url: 'generate_rent_details',
+	success: function(data) {
+		$('#details').append(data).hide().fadeToggle('slow', 'linear');
+		sumar();
+	  }
+  });" title="<%= deals.description %>"><%= deals.name %></a>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cliente:</b>
+  <%= @rent.customer_code_name %>
+  <% @rent.rent_details.each do |d| %>
+<% d.movie.set_kind_of_movie %>	
+	<p>
+	  <b>Película:</b>
+	  <%= d.movie_code_name %>
+	</p>
+	<p>
+	  <b>Tipo:</b>
+	  <%= d.movie.movie_kind.name %>
+	</p>
+	<p>
+	  <b>Precio:</b>
+	  <%= number_to_currency(d.price) %>
+	</p>
+	
+  <% end %>
+<p>
+ <b>Total:</b>
+  <%= number_to_currency(@rent.total) %>
+	</p>
+</p>
+
+
+<%= link_to 'Editar', edit_rent_path(@rent) %> |
+<%= link_to 'Volver', rents_path %>

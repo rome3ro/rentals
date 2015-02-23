@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dayname:</b>
+  <%= @weekday.dayname %>
+</p>
+
+<p>
+  <b>Daynumber:</b>
+  <%= @weekday.daynumber %>
+</p>
+
+
+<%= link_to 'Edit', edit_weekday_path(@weekday) %> |
+<%= link_to 'Back', weekdays_path %>

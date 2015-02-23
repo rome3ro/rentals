@@ -1,0 +1,33 @@
+<%= form_for(@deal, :html => { :class => "forma"}) do |f| %>
+  <% if @deal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@deal.errors.count, "error") %> prohibited this deal from being saved:</h2>
+
+      <ul>
+      <% @deal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t(:Name) %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label t(:Description) %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+   	<%= f.label t(:Weekday) %><br />
+    <%= collection_select(:deal, :weekday_id, Weekday.all, :id, :dayname, :prompt => false) %>
+  </div>
+<p>
+<%= nested_fields_for f, :deal_details, :legend => t(:deal_details) %>
+</p>
+  <div class="actions">
+    <%= f.submit t("Save"), :class => "submit"%>
+  </div>
+
+<% end %>

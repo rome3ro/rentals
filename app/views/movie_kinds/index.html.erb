@@ -1,0 +1,27 @@
+<h1><%=t :movie_kinds%> </h1>
+
+<table class="tabla">
+  <tr>
+    <th><%=t :Name%></th>
+    <th><%=t :Description%></th>
+    <th><%=t :Expiration_days%></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @movie_kinds.each do |movie_kind| %>
+  <tr>
+    <td><%= movie_kind.name %></td>
+    <td><%= movie_kind.description %></td>
+    <td><%= movie_kind.expiration_days %></td>
+    <td><%= link_to t('Show'), movie_kind %></td>
+    <td><%= link_to t('Edit'), edit_movie_kind_path(movie_kind) %></td>
+    <td><%= link_to t('Destroy'), movie_kind, confirm: t('Are you sure?'), method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to t('New'), new_movie_kind_path, :class => "filter_link" %>

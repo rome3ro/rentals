@@ -1,0 +1,23 @@
+<h1><%=t :movie_formats %> </h1>
+
+<table>
+  <tr>
+    <th><%=t :Name%></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @movie_formats.each do |movie_format| %>
+  <tr>
+    <td><%= movie_format.name %></td>
+    <td><%= link_to t('Show'), movie_format %></td>
+    <td><%= link_to t('Edit'), edit_movie_format_path(movie_format) %></td>
+    <td><%= link_to t('Destroy'), movie_format, confirm: t('Are you sure?'), method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to t('New'), new_movie_format_path %>

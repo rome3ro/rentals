@@ -1,0 +1,239 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+es_MX:
+
+  views:
+    pagination:
+      first: "&laquo; Primer"
+      last: "Último &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Siguiente &rsaquo;"
+      truncate: "..."
+          
+  activerecord:
+    models:
+      rent: Renta
+      movie: Película
+      reference: Referencia
+      customer: Cliente
+      rent_price: Precios
+    attributes:
+      rent:
+        customer: "Cliente"
+        rent_details: "Rentas"
+      movie:
+        code: "código"
+        name: "nombre"
+        movie_kind: "tipo"
+        checked: "checada"
+        genres: "géneros"
+        actors: "actores"
+        director: "director"
+        released: "Fecha de salida"
+        movie_format: "formato"
+      reference:     
+        customer: "cliente"   
+        name: "nombre"
+        address: "dirección"
+        phone: "teléfono"
+        cellphone: "celular"
+        city: "ciudad"
+        birthday: "nacimiento"
+        gender: "género"
+        email: "correo"
+        document_number: "número documento"
+        parentesco: "parentesco"
+        tiempo_conocer: "tiempo de conocer"
+      customer:     
+        references: "referencias"   
+        name: "nombre"
+        spouse: "cónyuge"
+        address: "dirección"
+        phone: "teléfono"
+        cellphone: "celular"
+        city: "ciudad"
+        birthday: "nacimiento"
+        gender: "género"
+        email: "correo"
+        document_number: "número documento"            
+  
+  errors:
+    messages:
+      blank: "no puede estar vacío!"
+      expired: "has expired, please request a new one"
+      not_found: "not found"
+      already_confirmed: "was already confirmed, please try signing in"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+              
+  date:
+    formats:
+        default: "%d-%m-%Y"
+        short: "%b %d"
+        long: "%B %d, %Y"
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    order:
+      - :day
+      - :month
+      - :year     
+
+  devise:
+    failure:
+      already_authenticated: 'You are already signed in.'
+      unauthenticated: 'Necesitas iniciar sesión para continuar.'
+      unconfirmed: 'You have to confirm your account before continuing.'
+      locked: 'Your account is locked.'
+      invalid: 'Invalid email or password.'
+      invalid_token: 'Invalid authentication token.'
+      timeout: 'Your session expired, please sign in again to continue.'
+      inactive: 'Your account was not activated yet.'
+    sessions:
+      signed_in: 'Sesión iniciada con éxito!'
+      signed_out: 'Signed out successfully.'
+    passwords:
+      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
+      updated: 'Your password was changed successfully. You are now signed in.'
+      updated_not_active: 'Your password was changed successfully.'
+      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+    confirmations:
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+    registrations:
+      signed_up: 'Welcome! You have signed up successfully.'
+      updated: 'You updated your account successfully.'
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
+      signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
+      signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Confirmation instructions'
+      reset_password_instructions:
+        subject: 'Reset password instructions'
+      unlock_instructions:
+        subject: 'Unlock Instructions'
+          
+  customer: "Cliente"
+  rent_details: "Rentas"  
+  hello: "Hello world"
+  Name: "Nombre"
+  name: "nombre"
+  address: "dirección"
+  Address: "Dirección"
+  Phone: "Teléfono"
+  phone: "teléfono"
+  Cellphone: "Móvil"
+  cellphone: "móvil"
+  City: "Ciudad"
+  city: "ciudad"
+  Birthday: "Cumpleaños"
+  birthday: "cumpleaños"
+  Gender: "Género"
+  gender: "género"
+  Email: "Correo"
+  email: "correo"
+  Customers: "Clientes"
+  customers: "clientes"
+  Customer: "Cliente"
+  customer: "cliente"
+  document number: "número documento"
+  Document Number: "Número Documento"
+  Document_number: "Número Documento"
+  Show: "Ver"
+  Edit: "Editar"
+  Destroy: "Eliminar"
+  Are you sure?: "¿Estás seguro?"
+  Back: "Volver"
+  State: "Estado"
+  state: "estado"
+  New: "Nuevo"
+  City: "Ciudad"
+  Spouse: "Cónyuge"
+  spouse: "cónyuge"
+  description: "descripción"
+  expiration_days: "días de expiración"
+  Expiration_days: "Días de expiración"
+  Editing: "Editando"
+  Description: "Descripción"
+  username: "usuario"
+  Username: "Usuario"
+  password: "contraseña"
+  Password: "Contraseña"
+  password_confirmation: "confirmar contraseña"
+  role: "rol"
+  movies: "películas"
+  Movies: "Películas"
+  movie: "película"
+  Movie: "Película"
+  code: "código"
+  Code: "Código"
+  kind: "tipo"
+  Kind: "Tipo"
+  checked: "checado"
+  Checked: "Checado"
+  code: "código"
+  name: "nombre"
+  movie_kind: "tipo de película"
+  MovieKind: "Tipo de Película"
+  MovieKinds: "Tipos de Película"
+  movie_kinds: "Tipo de películas"
+  checked: "checada"
+  genres: "géneros"
+  actors: "actores"
+  Actors: "Actores"
+  director: "Director"
+  released: "Fecha de salida"
+  movie_format: "formato de película"
+  movie_formats: "formatos de película"
+  MovieFormat: "Formato de Película"
+  MovieFormats: "Formatos de Película"
+  Rent: "Renta"
+  rent: "rent"
+  Rents: "Rentas"
+  rents: "rents"
+  Export: "Exportar"
+  Filter: "Filtrar"
+  Add: "Agregar"
+  Price: "Precio"
+  format: "formato"
+  Format: "Formato"
+  type: "tipo"
+  Type: "Tipo"
+  Date: "Fecha"
+  Sunday: "Domingo"
+  Monday: "Lunes"
+  Tuesday: "Martes"
+  Wednesday: "Miércoles"
+  Thursday: "Jueves"
+  Friday: "Viernes"
+  Saturday: "Sábado"
+  references: "referencias"  
+  References: "Referencias"  
+  parentesco: "parentesco"
+  tiempo_conocer: "tiempo de conocer"
+  rent_prices: "Precios"
+  rent_price: "Precio"
+  Weekday: "Día"
+  Surcharge: "Recargo"
+  Days: "Días"
+  Save: "Guardar"
+  deal_details: "Detalles de la promoción"
+  movies_quantity: "Cantidad"
+  deal: "promoción"
+  Deal: "Promoción"
+  deals: "promociones"
+  Deals: "Promociones"
+  None: "Ninguno"
+  Required: "Requerido"

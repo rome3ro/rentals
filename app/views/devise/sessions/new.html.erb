@@ -1,0 +1,14 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "forma_login"}) do |f| %>  
+
+<ul>  
+    <li><%= f.label t(:username) %> <%= f.text_field :username %></li>  
+    <li><%= f.label t(:password) %> <%= f.password_field :password %></li>  
+  	<li>&nbsp;</li>	
+    <li><%= f.submit "Entrar", :class => "submit" %></li>  
+</ul>
+
+<% end %>  
+
+<%= render :partial => "devise/shared/links" %>
+
+

@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @reference.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @reference.address %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @reference.phone %>
+</p>
+
+<p>
+  <b>Cellphone:</b>
+  <%= @reference.cellphone %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @reference.city_id %>
+</p>
+
+<p>
+  <b>Birthday:</b>
+  <%= @reference.birthday %>
+</p>
+
+<p>
+  <b>Gender:</b>
+  <%= @reference.gender_id %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @reference.email %>
+</p>
+
+<p>
+  <b>Document number:</b>
+  <%= @reference.document_number %>
+</p>
+
+
+<%= link_to 'Edit', edit_reference_path(@reference) %> |
+<%= link_to 'Back', references_path %>

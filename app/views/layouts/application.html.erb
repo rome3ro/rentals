@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield(:title) %></title>
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="container">
+	<div id="header">
+		<h1>
+			<%= image_tag "galaxy.png", :size => "32x32" %>
+			&nbsp;Video Galaxia&nbsp;
+			<span id="version">v1.1</span>
+			<span id="sesion">  
+			  <% if user_signed_in? %>  
+			    <%= current_user.username %>&nbsp;
+			    <%= link_to "Salir", destroy_user_session_path, :method => :delete %>  
+			  <% end %>  
+			</span>
+		</h1>		
+	</div>
+    	
+	
+
+	<div>
+		<% if user_signed_in? %>  
+			<%= link_to(:Rentas, rents_path) %> | <%= link_to(:Entregas, rent_details_path) %> | <%= link_to(:Clientes, customers_path) %> | <%= link_to(:Películas, movies_path) %>
+
+			 <%= "| ".html_safe + link_to(t(:MovieFormats), movie_formats_path) if current_user.role? :Administrador %>
+			 <%= "| ".html_safe + link_to(t(:MovieKinds), movie_kinds_path) if current_user.role? :Administrador %>
+			<%= "| ".html_safe + link_to(t(:Deals), deals_path) if current_user.role? :Administrador %>
+			 <%= "| ".html_safe + link_to(:Usuarios, users_path) if current_user.role? :Administrador %>
+<% end %>  
+	</div>
+
+	<div id="content-container">	
+		<div id="content">
+				
+			<p>
+				<%=yield%>
+			</p>
+		</div>		
+		<div id="footer">
+			Copyright © Video Galaxia, 2012.
+		</div>
+	</div>
+</div>
+</body>
+</html>

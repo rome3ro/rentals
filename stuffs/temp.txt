@@ -1,0 +1,178 @@
+	<%= f.collection_select(:movie_kind_id, @rent.item_to_collection(@rent.rent_details[@contador].movie_kind), :id, :name ) if !@rent.rent_details[@contador].nil? %>	
+	
+	<%= f.collection_select(:rent_price_id, @rent.item_to_collection(@rent.rent_details[@contador].rent_price), :id, :price ) if !@rent.rent_details[@contador].nil? %>
+	
+	
+	@combo_moviekind = "<select id=\"rent_rent_details_attributes_#{params[:item_id]}_movie_kind_id\" "+
+"name=\"rent[rent_details_attributes][#{params[:item_id]}][movie_kind_id]\">"+
+"<option value=\"#{@movie.movie_kind.id}\">#{@movie.movie_kind.name}</option></select>"
+
+@combo_price = "<select id=\"rent_rent_details_attributes_#{params[:item_id]}_rent_price_id\" "+
+"name=\"rent[rent_details_attributes][#{params[:item_id]}][rent_price_id]\">"+
+"<option value=\"#{@movie.rent_price.id}\">#{@movie.rent_price.price}</option></select>"
+
+@script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
+".find($('.item_details')).html('#{@combo_moviekind}&nbsp;#{@combo_price}');"                          
+
+	<%= f.collection_select(:movie_kind_id, @movie_kinds, :id, :name, {:include_blank => 'Please Select'} ) %>	
+	<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price, {:include_blank => 'Please Select'} ) %>
+	
+	#se pone en solo lectura el textbox de autocompletar del código de pélicula
+@script += "$(\"fieldset[data-record-id='#{params[:item_id]}']\")"+
+".find($(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_code\"))"+
+".attr('readonly', 'readonly');"
+	
+	 @script = "$(\"#rent_rent_details_attributes_#{params[:item_id]}_movie_kind_id\")"+
+".empty().append(#{movie_kinds_to_options(@movie_kinds)});"
+@script += "$(\"#rent_rent_details_attributes_#{params[:item_id]}_rent_price_id\")"+
+".empty().append(#{rent_price_to_options(@rent_prices)});"
+
+$ ->
+ 	$("FORM").nestedFields beforeInsert: (item) ->	 item.find("INPUT[type=text]").bind "railsAutocomplete.select", (event, data) -> $.ajax url: "update_data", data: "item_id="+item.attr("data-record-id")+"&movie_id="+data.item.value, type: "POST", dataType: "script", success: (dato) -> 	#alert dato
+
+	$ ->
+	  $("FORM").nestedFields beforeInsert: (item) ->		
+	    item.find(".item_details").hide()
+	    item.find("INPUT[type=text]").bind "railsAutocomplete.select", (event, data) ->
+	      $.ajax
+	        url: "update_data"
+	        data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value
+	        type: "POST"
+	        dataType: "script"
+	        success: (dato) ->
+	
+			script += "sum = 0;"+
+	        "$(\"label[for*=rent_price_id]\").each(function() {
+	              sum += Number($(this).val());alert('entro');
+	          });"+
+	          "//alert(sum);"
+	
+			$(document).ready ->
+			  return $(->
+			    $("FORM").nestedFields()
+			  )
+			  alert "entro!"
+			
+			$.ajax
+		        url: "http://localhost:3000/rents/update_data"
+		        data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value + "&cont=" + $("INPUT[data-autocomplete*=autocomplete_movie_code]").length
+		        type: "POST"
+		        dataType: "script"
+		        success: (dato) ->
+		          #$(".container").empty().html "<img src=\"../assets/rails.png\" />"
+			
+			
+			
+			$.ajax({
+			  url: "http://localhost:3000/rents/update_data",
+			  data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value + "&cont=" + $("INPUT[data-autocomplete*=autocomplete_movie_code]").length,
+			  type: "POST",
+			  dataType: "script",
+			  success: function() {
+			    sum = 0;
+			    $("label[id*='rent_price_id']").each(function() {
+			        sum += Number($(this).val());
+			    });
+			    alert(sum);
+			  }
+			});
+			
+			
+			# Place all the behaviors and hooks related to the matching controller here.
+			# All this logic will automatically be available in application.js.
+			# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+			sumar = ->
+			  	arr = $(".rent_price_label")
+				  arr.each (index, item) ->
+				    alert $(item).find("label[for*=rent_price_id]").text()
+
+			$ ->
+			  $("FORM").nestedFields beforeInsert: (item) ->
+			    item.find(".item_details").hide()
+			    item.find(".deliver_date_value").hide()
+			    item.find(".rent_price_value").hide()
+			    item.find("INPUT[data-autocomplete*=autocomplete_movie_name]").bind "railsAutocomplete.select", (event, data) ->
+			      $.ajax
+			        url: "http://localhost:3000/rents/update_data"
+			        data: "item_id=" + item.attr("data-record-id") + "&movie_id=" + data.item.value + "&cont=" + $("INPUT[data-autocomplete*=autocomplete_movie_code]").length
+			        type: "POST"
+			        dataType: "script"
+			        success: (dato) ->
+			          sumar()
+
+
+					$("#rent_customer_code_name").bind "railsAutocomplete.select", (event, data) ->
+				      $.ajax
+				        url: "http://localhost:3000/rents/validate_customer"
+				        data: "customer_id=" + data.item.value
+				        type: "POST"
+				        dataType: "script"
+				        beforeSend: (dato) ->
+				          #$(".container").empty().html "<img src=\"../assets/rails.png\" />"		
+
+						$(document).ready ->
+						  $("FORM").nestedFields()
+						  arr = $(".item")
+						  arr.each (index, item) ->
+						    $(item).remove()  if $(item).find("INPUT[id*=movie_id]").val() is ""
+
+
+
+
+
+
+							<%= plupload(@customer, :comprobantes, options={:plupload_container=>'uploader', :pluploader=>true, :field_name=>'customer[comprobantes_attributes][][archivo]'}) %>
+							<div id="uploader" name="uploader" style="width: 100%;"></div>
+
+insert into roles_users (role_id, user_id) values(1, 1)
+
+
+
+
+<h2>Referencias</h2>
+<a href="#" class="add">Agregar</a>
+  <div class="container">	
+    <%= f.nested_fields_for :references do |f| %>
+      <fieldset class="item">
+		<div class="field">
+       		<div class="field">
+			    <%= f.label :nombre %><br />
+			    <%= f.text_field :name, :size => 50 %>
+			  </div>
+			 <%= f.label :Direccion %><br />
+		    <%= f.text_area :address, :cols => 36, :rows => 2  %>
+			  <div class="field">
+			    <%= f.label :Telefono %><br />
+			    <%= f.text_field :phone %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Celular %><br />
+			    <%= f.text_field :cellphone %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Ciudad %><br />
+				<%= collection_select(:customer, :city_id, City.all, :id, :nombre, :prompt => true) %>
+			  </div>
+			 <div class="field">
+			    <%= f.label :Cumpleaños %><br />
+			    <%= f.date_select :birthday, :start_year => 1950 %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :Genero %><br />
+				<%= collection_select(:customer, :gender_id, Gender.all, :id, :description, :prompt => true) %>   
+			  </div>
+			  <div class="field">
+			    <%= f.label :email %><br />
+			    <%= f.text_field :email %>
+			  </div>
+			  <div class="field">
+		    <%= f.label :Document_number %><br />
+		    <%= f.text_field :document_number %>
+		  </div>
+			<a href="#" class="remove">quitar</a>
+	        <%= f.hidden_field :id %>
+			<%= f.hidden_field :_destroy %>
+		</div>
+      </fieldset>	
+    <% end %>
+  </div>

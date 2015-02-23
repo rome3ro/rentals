@@ -1,0 +1,51 @@
+<h1><%=t :rent_details %></h1>
+<table class="tabla">
+  <tr>
+	<th><%=t :Customer %></th>
+    <th>Rentada</th>
+    <th><%=t :Movie %></th>
+    <th><%=t :Price %></th>
+	<th>Entregar</th>
+    <th>Entregada</th>    
+    <th colspan=2>Recargos</th>
+    <th>Pendiente</th>
+    <th></th>
+    <th></th>  
+  </tr>
+<%= form_for(:rent_detail, :url => { :action => "index" }, :html => {:method => :get} ) do |f| %>
+<tr>
+    <td><%= f.text_field :customer, :class => "medium" %></td>
+    <td><%= f.text_field :created_at, :class => "medium" %></td>
+    <td><%= f.text_field :movie_code_name, :class => "medium" %></td>
+    <td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>días</td>
+	<td>m.n.</td>
+	<td>&nbsp;</td>
+    <td><%= link_to t("Export"), params.merge(:format => :csv), :class => "filter_link" %></td>
+    <td><%= f.submit t("Filter"), :class => "submit" %></td>
+  </tr>
+<% end %>
+<%= paginate @rent_details %>
+<% @rent_details.each do |rent_detail| %>
+	<% rent_detail.set_surcharges %>
+  <tr>
+    <td><%= rent_detail.rent.customer_code_name %></td>
+    <td><%= rent_detail.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+    <td><%= rent_detail.movie_code_name %></td>
+    <td><%= number_to_currency(rent_detail.price) %></td>
+    <td><%= rent_detail.deliver_date.strftime("%d-%m-%Y") %></td>
+    <td><%= rent_detail.delivered_date.strftime("%d-%m-%Y %H:%M") if !rent_detail.delivered_date.nil? %></td>
+    <td><%= rent_detail.surcharge_days %></td>
+    <td><%= number_to_currency(rent_detail.surcharge) %></td>
+    <td><%= number_to_currency(rent_detail.pending_surcharge) %></td>
+    <td><%= link_to 'Ver', rent_detail %></td>
+    <td><%= link_to 'Editar', edit_rent_detail_path(rent_detail) %></td>   
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

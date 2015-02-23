@@ -1,0 +1,76 @@
+<%= form_for(@rent, :html => { :class => "forma"}) do |f| %>
+  <% if @rent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
+
+      <ul>
+      <% @rent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<br/>
+<div id="custom_msg">	
+</div>
+<h2><%=t :Customer%></h2>
+  <div class="field">	
+	 <%= f.autocomplete_field :customer_code_name, autocomplete_customer_name_rents_path, :size => 50, :id_element =>
+	'#rent_customer_id' %><br/>		  
+		<%= f.hidden_field :customer_id %>  
+		<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
+  </div>		
+<h2><%=t :Movies%></h2>
+<a href="#" class="add"><%=t :Agregar%></a>
+  <div class="container">
+	<% @contador=0 %>
+    <%= f.nested_fields_for :rent_details do |f| %>
+      <fieldset class="item">
+	
+		<div class="field">
+       		<%= f.autocomplete_field :movie_code_name, autocomplete_movie_name_rent_details_path, :size => 50 %> 			
+		<span class="item_details">
+			<%= f.hidden_field :movie_id %>
+						
+			<%= f.label(:movie_kind, @rent.rent_details[@contador].movie_kind.name) if !@rent.rent_details[@contador].nil?%>
+			<%= f.label(:movie_kind, "") if @rent.rent_details[@contador].nil?%>
+			<%= f.hidden_field :movie_kind_id %>
+			
+			<span class="rent_price_label"> 
+				<%= f.label(:rent_price_id, number_to_currency(@rent.rent_details[@contador].rent_price.price)) if !@rent.rent_details[@contador].nil?%>	
+				<%= f.label(:rent_price_id, "") if @rent.rent_details[@contador].nil?%>				
+			</span>
+			<span class="rent_price_value" style="display:none"> 
+			<%= f.collection_select(:rent_price_id, @rent.rent_details[@contador].rent_price.to_collection, :id, :price) if !@rent.rent_details[@contador].nil?%>			
+			<%= f.collection_select(:rent_price_id, @rent_prices, :id, :price) if @rent.rent_details[@contador].nil?%>
+			</span>
+			<span class="deliver_date_label"> 
+				<%= f.label(:delivered_date, @rent.rent_details[@contador].deliver_date.strftime("Entregar %d-%m-%Y %H:%M")) if !@rent.rent_details[@contador].nil?%>
+				<%= f.label(:deliver_date, "") if @rent.rent_details[@contador].nil?%>				
+			</span>
+			<span class="deliver_date_value" style="display:none"> 
+				<%= f.datetime_select :deliver_date%> 
+			</span>
+			<%= f.label :delivered %>
+		    <%= f.check_box :delivered, :disabled => true %>
+		</span>				
+			<a href="#" class="remove">quitar</a>
+	        <%= f.hidden_field :id %>
+			<%= f.hidden_field :_destroy %>
+		</div>
+		
+		
+      </fieldset>
+	<% @contador=@contador+1 %>
+    <% end %>
+  </div>
+  <br/>
+  <div class="totals">
+	<%= f.label :total, "Total: $" %>	
+    <%= f.text_field :total, :readonly => true, :size => 20 %>
+  </div>
+<br/>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

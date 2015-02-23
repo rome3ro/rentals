@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%=t :Name%>:</b>
+  <%= @city.nombre %>
+</p>
+
+<p>
+  <b><%=t :State%>:</b>
+  <%= @city.state_id %>
+</p>
+
+
+<%= link_to t('Edit'), edit_city_path(@city) %> |
+<%= link_to t('Back'), cities_path %>

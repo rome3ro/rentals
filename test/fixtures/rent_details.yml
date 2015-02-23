@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  rent_id: 1
+  movie_id: 1
+  rentprice_id: 1
+  delivered: false
+  delivered_date: 2011-10-03 20:44:38
+  surcharge_days: 1
+  surcharge: 9.99
+  pending_surcharge: 9.99
+
+two:
+  rent_id: 1
+  movie_id: 1
+  rentprice_id: 1
+  delivered: false
+  delivered_date: 2011-10-03 20:44:38
+  surcharge_days: 1
+  surcharge: 9.99
+  pending_surcharge: 9.99

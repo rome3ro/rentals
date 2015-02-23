@@ -1,0 +1,49 @@
+<%= form_for(@rent) do |f| %>
+  <% if @rent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
+
+      <ul>
+      <% @rent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<br/>
+<div id="custom_msg">	
+</div>
+<h2>Customer</h2>
+  <div class="field">	
+    <%= f.autocomplete_field :customer_code, autocomplete_customer_code_rents_path, :size => 50 %><br/>		  
+  </div>		
+<h2>Movies</h2>
+<!--<a href="#" class="add">add movie</a>-->
+<a href="#" class="add">add movie</a>
+  <div class="container">
+	<% @contador=0 %>
+    <%= f.nested_fields_for :rent_details do |f| %>
+      <fieldset class="item">
+	
+		<div class="field">
+       		<%= f.autocomplete_field :movie_code, autocomplete_movie_code_rent_details_path, :size => 80 %>
+		<div class="item_details">
+
+			<%= f.collection_select(:movie_kind_id, @rent.item_to_collection(@rent.rent_details[@contador].movie_kind), :id, :name ) if !@rent.rent_details[@contador].nil? %>	
+			
+			<%= f.collection_select(:rent_price_id, @rent.item_to_collection(@rent.rent_details[@contador].rent_price), :id, :price ) if !@rent.rent_details[@contador].nil? %>		
+			
+		</div>				
+			<a href="#" class="remove">remove</a>
+	        <%= f.hidden_field :id %>
+	        <%= f.hidden_field :_destroy %>
+		</div>				
+      </fieldset>
+	<% @contador=@contador+1 %>
+    <% end %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

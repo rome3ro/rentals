@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Moviekind:</b>
+  <%= @deal_detail.moviekind_id %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @deal_detail.price %>
+</p>
+
+<p>
+  <b>Days:</b>
+  <%= @deal_detail.days %>
+</p>
+
+<p>
+  <b>Weekday:</b>
+  <%= @deal_detail.weekday %>
+</p>
+
+<p>
+  <b>Surcharge:</b>
+  <%= @deal_detail.surcharge %>
+</p>
+
+
+<%= link_to 'Edit', edit_deal_detail_path(@deal_detail) %> |
+<%= link_to 'Back', deal_details_path %>

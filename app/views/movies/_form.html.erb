@@ -1,0 +1,62 @@
+<%= form_for(@movie, :html => { :class => "forma"}) do |f| %>
+  <% if @movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+      <% @movie.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	
+	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
+  <div class="field">
+    <%= f.label t(:name) %><br />
+    <%= f.text_field :name , :onchange => "$.ajax({
+	    complete:function(request){},
+	    data:'movie_name='+ $(this).val(),
+	    dataType:'script',
+	    type:'post',
+	    url: 'get_extra_data'
+	  });", :size => 60, :class=> "uppercase" %>
+  </div>
+ <div class="field">
+    <%= f.label :IMDB %><br />
+    <%= f.text_field :imdb_id %>
+  </div>
+<div class="field">
+    <%= f.label t(:genres) %><br />
+    <%= f.text_field :genres, :size => 60 %>
+  </div>
+<div class="field">
+    <%= f.label t(:actors) %><br />
+    <%= f.text_area :actors, :cols => 43, :rows => 4 %>
+  </div>
+<div class="field">
+    <%= f.label t(:director) %><br />
+    <%= f.text_field :director %>
+  </div>
+<div class="field">
+    <%= f.label t(:released) %><br /> 
+    <%= f.date_select :released, :start_year => 1960 %><br /> 
+ 	<%= label_tag "Tomar en cuenta fecha de salida" %>
+	<%= check_box_tag "tomar_fecha_salida" %>
+  </div>
+ <div class="field">
+    <%= f.label t(:movie_format) %><br />
+	<%= collection_select(:movie, :movie_format_id, MovieFormat.all, :id, :name) %>
+  </div>
+
+<div class="field"> 
+	<div class="photo">
+    <%= image_tag(@movie.poster) if !@movie.new_record? %>
+	<%= image_tag(:poster) if @movie.new_record? %>
+	</div>
+	<%= f.hidden_field :poster %>
+  </div>
+  <div class="actions">
+    <%= f.submit  "Guardar", :class => "submit" %>
+  </div>
+<% end %>

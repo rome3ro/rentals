@@ -1,0 +1,45 @@
+<%= form_for(@rent, :html => { :class => "forma"}) do |f| %>
+  <% if @rent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
+      <ul>
+      <% @rent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<br/>
+<div id="custom_msg">
+</div>
+<h2><%=t :Customer %></h2>
+  <div class="field">	
+    <%= f.autocomplete_field :customer_code_name, autocomplete_customer_name_rents_path, :id_element =>
+'#rent_customer_id', :class => "extralarge" %>
+	<%= f.hidden_field :customer_id %>	
+	<%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
+  </div>		
+
+<h2><%=t :Deal %></h2>
+<p>
+<div>
+	<%= render :partial => "deals", :collection => Deal.all %>
+</div>
+</p>
+   				
+<h2><%=t :rent_details %></h2>
+	<p>
+	<div id="details">
+		
+	</div>
+	</p>
+<br/>
+  <div class="totals">
+	<%= f.label :total, "Total: $" %>	
+    <%= f.text_field :total, :readonly => true, :size => 20, :class => "small" %>
+  </div>
+<br/>
+  <div class="actions">
+    <%= f.submit "Rentar", :class => "submit"%>
+  </div>
+<% end %>
