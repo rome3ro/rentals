@@ -1,0 +1,30 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1404878218.7728553:@value"È[I"€/*
+* @Copyright (c) 2011 Aur√©lio Saraiva, Diego Plentz
+* @Page http://github.com/plentz/jquery-maskmoney
+* try at http://plentz.org/maskmoney
+
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the "Software"), to deal in the Software without
+* restriction, including without limitation the rights to use,
+* copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following
+* conditions:
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*/
+/*
+* @Version: 1.4
+* @Release: 2011-10-21
+*/
+(function(a){a.fn.maskMoney=function(b){return b=a.extend({symbol:"US$",showSymbol:!1,symbolStay:!1,thousands:",",decimal:".",precision:2,defaultZero:!0,allowZero:!1,allowNegative:!1},b),this.each(function(){function e(){d=!0}function f(){d=!1}function g(b){b=b||window.event;var g=b.charCode||b.keyCode||b.which;if(g==undefined)return!1;if(c.attr("readonly")&&g!=13&&g!=9)return!1;if(g<48||g>57)return g==45?(e(),c.val(q(c)),!1):g==43?(e(),c.val(c.val().replace("-","")),!1):g==13||g==9?(d&&(f(),a(this).change()),!0):g==37||g==39?!0:(k(b),!0);if(c.val().length==c.attr("maxlength"))return!1;k(b);var h=String.fromCharCode(g),i=c.get(0),j=c.getInputSelection(i),m=j.start,n=j.end;return i.value=i.value.substring(0,m)+h+i.value.substring(n,i.value.length),l(i,m+1),e(),!1}function h(b){b=b||window.event;var g=b.charCode||b.keyCode||b.which;if(g==undefined)return!1;if(c.attr("readonly")&&g!=13&&g!=9)return!1;var h=c.get(0),i=c.getInputSelection(h),j=i.start,m=i.end;return g==8?(k(b),j==m?(h.value=h.value.substring(0,j-1)+h.value.substring(m,h.value.length),j-=1):h.value=h.value.substring(0,j)+h.value.substring(m,h.value.length),l(h,j),maskAsDirty(),!1):g==9?(d&&(a(this).change(),f()),!0):g==46||g==63272?(k(b),h.selectionStart==h.selectionEnd?h.value=h.value.substring(0,j)+h.value.substring(m+1,h.value.length):h.value=h.value.substring(0,j)+h.value.substring(m,h.value.length),l(h,j),e(),!1):!0}function i(a){var d=o();c.val()==d?c.val(""):c.val()==""&&b.defaultZero?c.val(p(d)):c.val(p(c.val()));if(this.createTextRange){var e=this.createTextRange();e.collapse(!1),e.select()}}function j(d){a.browser.msie&&g(d),c.val()==""||c.val()==p(o())||c.val()==b.symbol?b.allowZero?b.symbolStay?c.val(p(o())):c.val(o()):c.val(""):b.symbolStay?b.symbolStay&&c.val()==b.symbol&&c.val(p(o())):c.val(c.val().replace(b.symbol,""))}function k(a){a.preventDefault?a.preventDefault():a.returnValue=!1}function l(a,b){var d=c.val().length;c.val(m(a.value));var e=c.val().length;b-=d-e,c.setCursorPosition(b)}function m(a){a=a.replace(b.symbol,"");var c="0123456789",d=a.length,e="",f="",g="";d!=0&&a.charAt(0)=="-"&&(a=a.replace("-",""),b.allowNegative&&(g="-"));if(d==0){if(!b.defaultZero)return f;f="0.00"}for(var h=0;h<d;h++)if(a.charAt(h)!="0"&&a.charAt(h)!=b.decimal)break;for(;h<d;h++)c.indexOf(a.charAt(h))!=-1&&(e+=a.charAt(h));var i=parseFloat(e);i=isNaN(i)?0:i/Math.pow(10,b.precision),f=i.toFixed(b.precision),h=b.precision==0?0:1;var j,k=(f=f.split("."))[h].substr(0,b.precision);for(j=(f=f[0]).length;(j-=3)>=1;)f=f.substr(0,j)+b.thousands+f.substr(j);return b.precision>0?p(g+f+b.decimal+k+Array(b.precision+1-k.length).join(0)):p(g+f)}function n(){var a=c.val();c.val(m(a))}function o(){var a=parseFloat("0")/Math.pow(10,b.precision);return a.toFixed(b.precision).replace(new RegExp("\\.","g"),b.decimal)}function p(a){return b.showSymbol&&a.substr(0,b.symbol.length)!=b.symbol?b.symbol+a:a}function q(a){if(b.allowNegative){var c=a.val();return a.val()!=""&&a.val().charAt(0)=="-"?a.val().replace("-",""):"-"+a.val()}return a.val()}var c=a(this),d=!1;c.bind("keypress.maskMoney",g),c.bind("keydown.maskMoney",h),c.bind("blur.maskMoney",j),c.bind("focus.maskMoney",i),c.bind("mask",n),c.one("unmaskMoney",function(){c.unbind(".maskMoney"),a.browser.msie?this.onpaste=null:a.browser.mozilla&&this.removeEventListener("input",j,!1)})})},a.fn.unmaskMoney=function(){return this.trigger("unmaskMoney")},a.fn.mask=function(){return this.trigger("mask")},a.fn.setCursorPosition=function(a){return this.each(function(b,c){if(c.setSelectionRange)c.focus(),c.setSelectionRange(a,a);else if(c.createTextRange){var d=c.createTextRange();d.collapse(!0),d.moveEnd("character",a),d.moveStart("character",a),d.select()}}),this},a.fn.getInputSelection=function(a){var b=0,c=0,d,e,f,g,h;return typeof a.selectionStart=="number"&&typeof a.selectionEnd=="number"?(b=a.selectionStart,c=a.selectionEnd):(e=document.selection.createRange(),e&&e.parentElement()==a&&(g=a.value.length,d=a.value.replace(/\r\n/g,"\n"),f=a.createTextRange(),f.moveToBookmark(e.getBookmark()),h=a.createTextRange(),h.collapse(!1),f.compareEndPoints("StartToEnd",h)>-1?b=c=g:(b=-f.moveStart("character",-g),b+=d.slice(0,b).split("\n").length-1,f.compareEndPoints("EndToEnd",h)>-1?c=g:(c=-f.moveEnd("character",-g),c+=d.slice(0,c).split("\n").length-1)))),{start:b,end:c}}})(jQuery);:ET

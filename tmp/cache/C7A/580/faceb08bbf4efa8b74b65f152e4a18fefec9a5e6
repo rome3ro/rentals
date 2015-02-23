@@ -1,0 +1,620 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1330820317.577176:@value"í7[I"ß7/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+
+
+*/
+
+
+* { margin: 0px; padding: 0px; }
+
+body { 
+	margin: 0 auto;
+	/*background: #f5f5f5;*/
+	color: #555;	 
+	width: 800px; 
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE);
+	/* make reference to the Yanone Kaffeesatz font */
+	/*font-family: 'Yanone Kaffeesatz', arial, sans-serif;*/
+	background-repeat:no-repeat;
+	font-family: verdana, arial, helvetica, sans-serif;
+}
+
+h1 { 
+	color: #555; 
+	margin: 20px 0 20px 0; 
+}	
+	
+.tabla {
+	
+    overflow:hidden;
+    border:1px solid #d3d3d3;
+    background:#fefefe;
+    width:100%;
+    margin:1% auto 0;
+    -moz-border-radius:5px; /* FF1+ */
+    -webkit-border-radius:5px; /* Saf3-4 */
+    border-radius:5px;
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.tabla th, td {padding:4px 4px 4px 4px; text-align:center; }
+.tabla th {padding-top:4px; text-shadow: 1px 1px 1px #fff; background:#e8eaeb;font-size:12px;}
+.tabla td {border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;font-size:11px;}
+.tabla tr.odd-row td {background:#f6f6f6;}
+.tabla td.first, th.first {text-align:left}
+.tabla td.last {border-right:none;}
+/*
+Background gradients are completely unnecessary but a neat effect.
+*/
+.tabla td {
+    background: -moz-linear-gradient(100% 25% 90deg, #fefefe, #f9f9f9);
+    background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f9f9f9), to(#fefefe));
+}
+.tabla tr.odd-row td {
+    background: -moz-linear-gradient(100% 25% 90deg, #f6f6f6, #f1f1f1);
+    background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f1f1f1), to(#f6f6f6));
+}
+.tabla th {
+    background: -moz-linear-gradient(100% 20% 90deg, #e8eaeb, #ededed);
+    background: -webkit-gradient(linear, 0% 0%, 0% 20%, from(#ededed), to(#e8eaeb));
+}
+/*
+I know this is annoying, but we need additional styling so webkit will recognize rounded corners on background elements.  Nice write up of this issue: http://www.onenaught.com/posts/266/css-inner-elements-breaking-border-radius
+And, since we've applied the background colors to td/th element because of IE, Gecko browsers also need it.
+*/
+.tabla tr:first-child th.first {
+    -moz-border-radius-topleft:5px;
+    -webkit-border-top-left-radius:5px; /* Saf3-4 */
+}
+
+.tabla tr:first-child th.last {
+    -moz-border-radius-topright:5px;
+    -webkit-border-top-right-radius:5px; /* Saf3-4 */
+}
+
+.tabla tr:last-child td.first {
+    -moz-border-radius-bottomleft:5px;
+    -webkit-border-bottom-left-radius:5px; /* Saf3-4 */
+}
+
+.tabla tr:last-child td.last {
+    -moz-border-radius-bottomright:5px;
+    -webkit-border-bottom-right-radius:5px; /* Saf3-4 */
+}
+
+.tabla input.small
+{
+
+	padding: 4px; 
+	margin: 2px 0 2px 0; 
+	background: #fff; 
+	width: 50px;
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;
+}
+
+.tabla input.small:hover { 
+	background: #eee; 
+}
+
+.tabla input.medium
+{
+
+	padding: 4px; 
+	margin: 2px 0 2px 0; 
+	background: #fff; 
+	width: 100px;
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;
+}
+
+.tabla input.medium:hover { 
+	background: #eee; 
+}
+
+.tabla input.large
+{
+	
+	padding: 4px; 
+	margin: 2px 0 2px 0; 
+	background: #fff; 
+	width: 150px;
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;
+}
+
+.tabla input.large:hover { 
+	background: #eee; 
+}
+
+.tabla input.extralarge
+{
+	
+	padding: 4px; 
+	margin: 2px 0 2px 0; 
+	background: #fff; 
+	width: 200px;
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;
+}
+
+.tabla input.extralarge:hover { 
+	background: #eee; 
+}
+
+.tabla input.submit { 	
+	width: 60px; 
+	color: #eee; 
+	padding:6px;
+	/*text-transform: uppercase; */
+	/*margin-top: 10px;
+	height:20px;*/
+	background-color: #464646;	
+	border: none;
+	
+	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	
+	/* -- CSS3 - Rounded Corners -- */
+	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius: 4px; 
+					
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#555555), to(#464646)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#464646, #555555);
+}
+
+.tabla input.submit:hover { 		
+	/*-webkit-box-shadow: 0px 0px 10px #555;
+	-moz-box-shadow: 0px 0px 10px #aaa; 
+	box-shadow: 0px 0px 5px #555;	*/
+	color:#fff;
+	cursor:  pointer; 
+}
+
+.tabla .filter_link { 	
+	width: 60px; 
+	color: #eee; 
+	padding:6px;
+	/*text-transform: uppercase; */
+	/*margin-top: 10px;
+	height:20px;*/
+	background-color: #464646;	
+	border: none;
+	text-decoration:none;
+	
+	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	
+	/* -- CSS3 - Rounded Corners -- */
+	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius: 4px; 
+					
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#555555), to(#464646)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#464646, #555555);
+}
+
+.tabla .filter_link:hover { 		
+	/*-webkit-box-shadow: 0px 0px 10px #555;
+	-moz-box-shadow: 0px 0px 10px #aaa; 
+	box-shadow: 0px 0px 5px #555;	*/
+	color:#fff;
+	cursor:  pointer; 
+}
+
+.forma label {	
+	font-size: 14px;
+	color: #666; 
+}
+
+.forma { 
+	float: left;
+	border: 1px solid #ddd; 
+	padding: 30px 40px 20px 40px; 
+	margin: 25px 0 0 0;
+	width: 715px;
+	background: #fff;
+			
+	/* -- CSS3 - define rounded corners for the form -- */	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px; 		
+	
+	/* -- CSS3 - create a background graident -- */
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+	
+	/* -- CSS3 - add a drop shadow -- */
+	-webkit-box-shadow:0px 0 50px #ccc;
+	-moz-box-shadow:0px 0 50px #ccc; 
+	box-shadow:0px 0 50px #ccc;		 		
+}
+
+.forma fieldset { border: none; }
+
+.forma input, textarea { 		
+	padding: 4px; 
+	margin: 2px 0 10px 0; 
+	background: #fff; 
+	width: 220px; 
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;							
+}
+
+.forma textarea {		
+	width: 390px; 
+	height: 175px; 		 		
+}
+
+.forma input:hover, textarea:hover { 
+	background: #eee; 
+}
+	
+.forma input.submit { 	
+	width: 80px;	
+	color: #eee; 
+	/*text-transform: uppercase; */
+	margin-top: 10px;
+	/*background-color: #339933;	*/
+	background-color: #464646;
+	border: none;
+
+	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	
+	/* -- CSS3 - Rounded Corners -- */
+	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius: 4px; 
+					
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 	
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#555555), to(#464646)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#464646, #555555);
+} 
+
+.forma input.submit:hover { 		
+	-webkit-box-shadow: 0px 0px 20px #555;
+	-moz-box-shadow: 0px 0px 20px #aaa; 
+	box-shadow: 0px 0px 10px #555;	
+	cursor:  pointer; 
+}
+
+
+
+
+/*
+body
+{
+	margin:0px;
+}
+*/
+#container
+{
+	margin: 0 auto;
+	width: 100%;
+	/*background: #fff;*/
+}
+
+#header
+{
+	color: #555; 
+	padding-top:5px;
+	padding-bottom:10px;
+	padding-left:5px;
+	padding-right:5px;
+	/*border:1px solid gray;*/
+	height:35px; /*the height of the element*/	
+	
+}
+
+#header h1 { 
+	color: #555; 
+	margin: 0 0 20px 0; 	
+}
+
+#header #version 
+{	
+	
+	color:#555;
+	font-size:12px;
+}
+
+#header #sesion
+{	
+	float:right;
+	color:#555;
+	font-size:14px;
+}
+
+#header img
+{	
+	position:relative;
+	/*border:1px solid gray;*/
+	top:5px;
+}
+
+#header #sesion a
+{	
+	font-size:12px;
+	color:#CE331B;
+	text-decoration:underline;
+}
+
+#header #sesion a:hover
+{	
+	font-size:12px;
+	background:#f5f5f5;
+	text-decoration:none;
+}
+
+/*
+#navigation
+{
+	float: left;
+	width: 100%;
+	background: #333;
+}
+
+#navigation ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#navigation ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#navigation li a
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	color: #fff;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+
+#navigation li a:hover { background: #383; }
+*/
+#content-container
+{
+	float: left;
+	width: 100%;	
+}
+
+#content
+{
+	clear: left;
+	float: left;
+	/*width: 95%;*/
+	padding: 20px 0;
+	margin: 0 0 0 0;
+	display: inline;
+}
+
+#content h2 { margin: 0; }
+
+
+#footer
+{
+	clear: left;
+	/*background: #ccc;*/
+	text-align: center;
+	padding: 20px;
+	height: 1%;
+	
+}
+ul
+{
+	list-style-type:none;			
+/*	width:380px;*/
+}
+
+li { 
+	
+	/*float: left;	*/
+	width: 280px; 
+}
+
+.forma_login label {	
+	font-size: 14px;
+	color: #666; 
+}
+
+.forma_login { 
+	float: left;
+	border: 1px solid #ddd; 
+	padding: 30px 40px 20px 40px; 
+	margin: 25px 0 0 0;
+	width: 280px;
+	background: #fff;
+			
+	/* -- CSS3 - define rounded corners for the form -- */	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px; 		
+	
+	/* -- CSS3 - create a background graident -- */
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+	
+	/* -- CSS3 - add a drop shadow -- */
+	-webkit-box-shadow:0px 0 50px #ccc;
+	-moz-box-shadow:0px 0 50px #ccc; 
+	box-shadow:0px 0 50px #ccc;		 		
+}
+
+.forma_login fieldset { border: none; }
+
+.forma_login input, textarea { 		
+	padding: 4px; 
+	margin: 2px 0 10px 0; 
+	background: #fff; 
+	width: 220px; 
+	font-size: 12px; 
+	color: #555; 
+	border: 1px #ddd solid;
+	
+	/* -- CSS3 Shadow - create a shadow around each input element -- */ 
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+	
+	/* -- CSS3 Transition - define what the transition will be applied to (i.e. the background) -- */		
+	-webkit-transition: background 0.3s linear;							
+}
+
+.forma_login textarea {		
+	width: 390px; 
+	height: 175px; 		 		
+}
+
+.forma_login input:hover, textarea:hover { 
+	background: #eee; 
+}
+	
+.forma_login input.submit { 	
+	width: 80px;	
+	color: #eee; 
+	/*text-transform: uppercase; */
+	margin-top: 10px;
+	background-color: #464646;	
+	border: none;
+
+	/* -- CSS3 Transition - define which property to animate (i.e. the shadow)  -- */
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+	
+	/* -- CSS3 - Rounded Corners -- */
+	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius: 4px; 
+					
+	/*#D31F11 A3170B-- CSS3 Shadow - create a shadow around each input element -- */ 	
+	/*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#339933), to(#47A347)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#47A347, #339933);*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#555555), to(#464646)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#464646, #555555);
+} 
+
+.forma_login input.submit:hover { 		
+	-webkit-box-shadow: 0px 0px 20px #555;
+	-moz-box-shadow: 0px 0px 20px #aaa; 
+	box-shadow: 0px 0px 10px #555;	
+	cursor:  pointer; 
+}
+input.uppercase {
+  text-transform: uppercase; }
+.forma {
+  width: 715px; }
+
+.forma input.extralarge {
+  width: 360px; }
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; }
+
+a {
+  color: #000; }
+  a:visited {
+    color: #666; }
+  a:hover {
+    /*color: #339933;*/
+    color: #CE331B; }
+
+div.field, div.actions {
+  margin-bottom: 10px; }
+
+p {
+  padding: 5px; }
+
+#notice {
+  color: green; }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table; }
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0; }
+  #error_explanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff; }
+  #error_explanation ul li {
+    font-size: 12px;
+    list-style: square; }
+:EF
